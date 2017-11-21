@@ -6,7 +6,7 @@ class Review(serializers.Serializer):
 	id = serializers.IntergerField(read_only = True)
 	# venue_id 
 	score = serializers.IntergerField()
-	review = serializers.CharField(max_length = 140)
+	review = serializers.TextField()
 
 	def create(self, validated_data):
 		print('validated', validated_data)

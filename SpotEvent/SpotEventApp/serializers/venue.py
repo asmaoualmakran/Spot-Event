@@ -2,7 +2,7 @@ from rest_framework import serializers
 from SpotEventApp.models import venue as venueModel
 
 class Venue(serializers.Serializer):
-	id = serializers.IntegerField(read_only = True)
+	id = serializers.IntegerField(read_only = False)
 	venue_name = serializers.CharField(max_length = 30)
 	address_id = serializers.StringRelatedField(many=False)
 

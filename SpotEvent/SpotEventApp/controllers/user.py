@@ -5,6 +5,13 @@ from SpotEventApp.serializers.user import User as userSerializer
 from SpotEventApp.models.user import User as userModel
 from SpotEventApp.serializers.address import Address as addressSerializer
 
+
+@api_view(['GET'])
+def api_root(request, format=None):
+	return Response({
+		'users': reverse('api:users', request=request, format=format)
+		})
+
 @api_view(['GET', 'POST'])
 def user_request(request):
 	if (request.method == 'GET' ):
