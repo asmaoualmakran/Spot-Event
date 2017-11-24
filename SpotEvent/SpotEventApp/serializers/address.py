@@ -22,9 +22,9 @@ from SpotEventApp.models import address as addressModel
 #		return instance
 
 
+
 class Address(serializers.ModelSerializer):
 	id = serializers.IntegerField(read_only=True)
-
 
 	class Meta:
 		model = addressModel
@@ -36,3 +36,4 @@ class createAddress(serializers.ModelSerializer):
 	 class Meta: 
 	 	model = addressModel
 	 	field = ('street','number','zip_code','city','country')
+
