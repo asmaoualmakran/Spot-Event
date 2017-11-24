@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from SpotEventApp.models import address as addressModel
+from SpotEventApp.models.address import Address as addressModel
 
 
 #class Address(serializers.Serializer):
@@ -31,9 +31,9 @@ class Address(serializers.ModelSerializer):
 		fields = ('id','street','number','zip_code','city','country')
 	
 
-class createAddress(serializers.ModelSerializer):
+class Create_address(serializers.ModelSerializer):
 
 	 class Meta: 
 	 	model = addressModel
-	 	field = ('street','number','zip_code','city','country')
+	 	fields = ('street','number','zip_code','city','country')
 

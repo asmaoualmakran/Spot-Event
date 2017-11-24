@@ -41,7 +41,7 @@ class User(serializers.HyperlinkedModelSerializer):
 
 class Create_user(serializers.Serializer):
 	_userFields = ('first_name','last_name','birthday', 'email')
-	_addressFields = ('street','number', 'zip_code', 'country')
+	_addressFields = ('street','number', 'zip_code', 'city', 'country')
 
 	first_name = serializers.CharField(max_length = 30)
 	last_name = serializers.CharField(max_length = 30)
@@ -50,6 +50,7 @@ class Create_user(serializers.Serializer):
 	street = serializers.CharField(max_length = 50)
 	number = serializers.CharField(max_length = 5)
 	zip_code = serializers.CharField(max_length = 10)
+	city = serializers.CharField(max_length = 20)
 	country = serializers.CharField(max_length = 20)
 
 	def create(self, validated_data):

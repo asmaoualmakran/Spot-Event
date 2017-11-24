@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from SpotEventApp.serializers.address import Address as addressSerializer
+from SpotEventApp.serializers.address import Create_address as Create_addressSerializer
 from SpotEventApp.models.address import Address as addressModel
 
 
@@ -22,9 +23,9 @@ def address_request(request):
 
 
 @api_view(['POST'])
-def create_address(request, PK):
+def create_address(request, pk):
 	try:
-		address = addressModel.object.get(id=PK)
+		address = addressModel.objects.get(id=pk)
 	except:
 		return Response(serializer.errors, status=status.HTTP_400_NOT_FOUND)
 	serializer = addressSerializer(data=request.data)
@@ -37,8 +38,10 @@ def create_address(request, PK):
 @api_view(['GET'])
 def get_address_request(request, pk): 
 	try: 
-		address = address.object.get(id=pk)
+		print("i got here")
+		address = addressModel.objects.get(id=pk)
 	except: 
-		return Response(serializer.errors, status=status.HTTP_400_NOT_FOUND)
+		return Response(status=status.HTTP_404_NOT_FOUND)
+	print("i got further")
 	serializer = addressSerializer(address, context={'request':request})
 	return Response(serializer.data)
