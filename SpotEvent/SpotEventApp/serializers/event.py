@@ -7,9 +7,9 @@ class Event(serializers.HyperlinkedModelSerializer):
 	class Meta: 
 		model = eventModel
 		fields = ('id','venue_id', 'event_name', 'artists')
-		extra_kwargs = {'venue':{'view_name': 'api:venue-detail'}}
+		extra_kwargs = {'venue':{'view_name': 'api:event-detail'}}
 
-class CreateEvent(serializers.ModelSerializer):
+class Create_event(serializers.ModelSerializer):
 	class Meta: 
 		model = eventModel
 		fields = ('venue_id', 'event_name', 'artists')

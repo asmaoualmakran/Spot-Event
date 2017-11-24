@@ -1,13 +1,13 @@
 from django.db import models
-from . import address
+from SpotEventApp.models.address import Address
 
+
+#This table is used to avoid multiple null values in the 
+#address table, this table wil only hold id's and id's of
+#addresses
 
 class Identifier(models.Model):
-	address_id = models.ForeignKey(address.Address, null = True)
+	address_id = models.ForeignKey(Address, related_name='address_id')
 
 
-	def __str__(self):
-		return '%s' % (self.id)
 
-	class Meta:
-		abstract = True

@@ -7,5 +7,5 @@ class Address(models.Model):
 	zip_code	= models.CharField(max_length = 10)
 	country		= models.CharField(max_length = 20)
 
-def __str__(self):
-	return '%s, %s, %s, %s'%(self.street, self.number, self.zip_code, self.country)
+#def __str__(self):
+#	return '%s, %s, %s, %s'%(self.street, self.number, self.zip_code, self.country)
