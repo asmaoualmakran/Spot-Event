@@ -50,3 +50,13 @@ def venue_request(request):
 			return Response(serializer.data)
 		else: 
 			return Response(serializer.errors)
+
+
+@api_view(['GET'])
+def get_venue_request(request, pk): 
+	try: 
+		venue = venueModel.objects.get(id=pk)
+	except: 
+		return Response(status=status.HTTP_404_NOT_FOUND)
+	serializer = venueSerializer(venue, context={'request':request})
+	return Response(serializer.data)

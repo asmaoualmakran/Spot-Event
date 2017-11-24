@@ -27,6 +27,16 @@ def user_request(request):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
+@api_view(['GET'])
+def get_user_request(request, pk): 
+	try: 
+		user = userModel.objects.get(id=pk)
+	except: 
+		return Response(status=status.HTTP_404_NOT_FOUND)
+	serializer = userSerializer(user, context={'request':request})
+	return Response(serializer.data)
+
 #when creating a user, an address has to be created 
 # --> adding a new value to identifier
 #post request has to be adjusted
