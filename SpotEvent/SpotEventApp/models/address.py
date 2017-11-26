@@ -8,5 +8,3 @@ class Address(models.Model):
 	city		= models.CharField(max_length = 20)
 	country		= models.CharField(max_length = 20)
 
-#def __str__(self):
-#	return '%s, %s, %s, %s'%(self.street, self.number, self.zip_code, self.country)

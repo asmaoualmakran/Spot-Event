@@ -12,9 +12,18 @@ def review_request(request):
 		serializers = reviewSerializer(reviews, many=True, context={'request':request})
 		return Response(serializers.data)
 	elif (request.method == 'POST'):
-		serializer = Create_reviewSerializer(data=request.data)
+		serializer = reviewSerializer(data=request.data)
 		if (serializer.is_valid()):
-			serializer = serializers.reviewSerializer(serializer.save(), context={'request':request})
+			serializer = Create_reviewSerializer(serializer.save(), context={'request':request})
 			return Response(serializer.data)
 		else: 
 			return Response(serializer.errors)
+
+@api_view(['GET'])
+def single_review_request(request,pk):
+	try:
+		review = reviewModel.objects.get(id=pk)
+	except:
+		return Response(status=status.HTTP_404_NOT_FOUND)
+	serializer = reviewSerializer(review, context={'request':request})
+	return Response(serializer.data)

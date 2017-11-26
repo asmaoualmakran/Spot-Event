@@ -36,12 +36,10 @@ def create_address(request, pk):
 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-def get_address_request(request, pk): 
+def single_address_request(request, pk): 
 	try: 
-		print("i got here")
 		address = addressModel.objects.get(id=pk)
 	except: 
 		return Response(status=status.HTTP_404_NOT_FOUND)
-	print("i got further")
 	serializer = addressSerializer(address, context={'request':request})
 	return Response(serializer.data)
