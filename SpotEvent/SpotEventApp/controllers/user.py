@@ -29,13 +29,25 @@ def user_request(request):
 
 
 
-@api_view(['GET'])
+@api_view(['GET','PUT','DELETE'])
 def single_user_request(request, pk): #get one user with the specific
 	try: 
 		user = userModel.objects.get(id=pk)
-	except: 
+	except userModel.DoesNotExist:
 		return Response(status=status.HTTP_404_NOT_FOUND)
-	serializer = userSerializer(user, context={'request':request})
-	return Response(serializer.data)
+
+	if(request.method == 'GET'):
+		serializer = userSerializer(user, context={'request':request})
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+	elif(request.method == 'PUT'):
+		serializer = userSerializer(user, data=request.data, context={'request':request})
+		if (serializer.is_valid()):
+			serializer.save()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	else:
+		user.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)	
 
 #TODO: Write PUT and DELETE
