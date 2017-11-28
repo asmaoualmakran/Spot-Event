@@ -42,7 +42,7 @@ def single_user_request(request, pk): #get one user with the specific
 
 	elif(request.method == 'PUT'):
 		serializer = userSerializer(user, data=request.data, context={'request':request})
-		if (serializer.is_valid()):
+		if(serializer.is_valid()):
 			serializer.save()
 			return Response(status=status.HTTP_204_NO_CONTENT)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -50,4 +50,4 @@ def single_user_request(request, pk): #get one user with the specific
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)	
 
-#TODO: Write PUT and DELETE
+

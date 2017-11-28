@@ -19,11 +19,23 @@ def review_request(request):
 		else: 
 			return Response(serializer.errors)
 
-@api_view(['GET'])
+@api_view(['GET','PUT','DELETE'])
 def single_review_request(request,pk):
 	try:
 		review = reviewModel.objects.get(id=pk)
-	except:
+	except reviewModel.DoesNotExist:
 		return Response(status=status.HTTP_404_NOT_FOUND)
-	serializer = reviewSerializer(review, context={'request':request})
-	return Response(serializer.data)
+
+	if(request.method == 'GET'):
+		serializer = reviewSerializer(review, context={'request':request})
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+	elif(request.method == 'PUT'):
+		serializer = reviewSerializer(review, data=request.data, context={'request':request})
+		if(serializer.is_valid()):
+			serializer.save()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	else:
+		review.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)

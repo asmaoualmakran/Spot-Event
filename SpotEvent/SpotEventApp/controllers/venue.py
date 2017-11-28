@@ -24,11 +24,23 @@ def venue_request(request):
 			return Response(serializer.errors)
 
 
-@api_view(['GET'])
+@api_view(['GET','PUT','DELETE'])
 def single_venue_request(request, pk): 
 	try: 
 		venue = venueModel.objects.get(id=pk)
-	except: 
+	except venueModel.DoesNotExist:
 		return Response(status=status.HTTP_404_NOT_FOUND)
-	serializer = venueSerializer(venue, context={'request':request})
-	return Response(serializer.data)
+
+	if(request.method == 'GET'):	
+		serializer = venueSerializer(venue, context={'request':request})
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+	elif(request.method == 'PUT'):
+		serializer = venueSerializer(venue, data=request.data, context={'request':request})
+		if(serializer.is_valid()):
+			serializer.save()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	else:
+		venue.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)	
