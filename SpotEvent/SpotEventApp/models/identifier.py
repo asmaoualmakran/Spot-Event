@@ -7,7 +7,7 @@ from SpotEventApp.models.address import Address
 #addresses
 
 class Identifier(models.Model):
-	address_id = models.ForeignKey(Address, related_name='address_id')
+	address_id = models.ForeignKey(Address, related_name='address_id', null=True, on_delete=models.SET_NULL)
 
 
 

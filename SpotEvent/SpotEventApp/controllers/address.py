@@ -5,6 +5,8 @@ from SpotEventApp.serializers.address import Address as addressSerializer
 from SpotEventApp.serializers.address import Create_address as Create_addressSerializer
 from SpotEventApp.models.address import Address as addressModel
 
+from SpotEventApp.models.identifier import Identifier as identifierModel
+
 
 @api_view(['GET','POST'])  # get all the addresses or add an addresss
 def address_request(request):
@@ -40,5 +42,16 @@ def single_address_request(request, pk):
 			return Response(status=status.HTTP_204_NO_CONTENT)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 	else:
-		address.delete()
-		return Response(status=status.HTTP_204_NO_CONTENT)
+
+		#This code is for deleting an address entity, before deleting we check if 
+		# the address is still a foreing key of an user- or venue entity, if so deletino is not allowed 
+		# otherwise we delete the address entity
+
+		try:
+			identifier = identifierModel.objects.get(address_id=pk)
+		except identifierModel.DoesNotExist:
+			address.delete()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+
+		return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+		
