@@ -2,7 +2,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from SpotEventApp.serializers.address import Address as addressSerializer
+from SpotEventApp.serializers.address import Create_address as Create_addressSerializer
 from SpotEventApp.models.address import Address as addressModel
+
+from SpotEventApp.models.identifier import Identifier as identifierModel
 
 
 @api_view(['GET','POST'])  # get all the addresses or add an addresss
@@ -21,24 +24,34 @@ def address_request(request):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
-def create_address(request, PK):
-	try:
-		address = addressModel.object.get(id=PK)
-	except:
-		return Response(serializer.errors, status=status.HTTP_400_NOT_FOUND)
-	serializer = addressSerializer(data=request.data)
-	if (serializer.is_valid()):
-		address = serializer.save()
-		serializer = addressSerializer(adress, context={'request':request})
-		return Response(serializer.data, status=status.HTTP_201_CREATED)
-	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['GET'])
-def get_address_request(request, pk): 
+@api_view(['GET','PUT','DELETE'])
+def single_address_request(request, pk): 
 	try: 
-		address = address.object.get(id=pk)
-	except: 
-		return Response(serializer.errors, status=status.HTTP_400_NOT_FOUND)
-	serializer = addressSerializer(address, context={'request':request})
-	return Response(serializer.data)
+		address = addressModel.objects.get(id=pk)
+	except addressModel.DoesNotExist: 
+		return Response(status=status.HTTP_404_NOT_FOUND)
+
+	if(request.method == 'GET'):	
+		serializer = addressSerializer(address, context={'request':request})
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+	elif(request.method == 'PUT'):
+		serializer = addressSerializer(address, data=request.data, context={'request':request})
+		if(serializer.is_valid()):
+			serializer.save()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	else:
+
+		#This code is for deleting an address entity, before deleting we check if 
+		# the address is still a foreing key of an user- or venue entity, if so deletino is not allowed 
+		# otherwise we delete the address entity
+
+		try:
+			identifier = identifierModel.objects.get(address_id=pk)
+		except identifierModel.DoesNotExist:
+			address.delete()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+
+		return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+		

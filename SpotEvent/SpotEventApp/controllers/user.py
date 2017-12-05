@@ -11,6 +11,7 @@ from SpotEventApp.serializers.address import Address as addressSerializer
 #this wil get all users and retrun it or add a user to 
 #the existing list of users 
 # when posting an addres needs to be created too
+
 @api_view(['GET', 'POST'])
 def user_request(request):
 	if (request.method == 'GET' ):
@@ -27,39 +28,26 @@ def user_request(request):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-#when creating a user, an address has to be created 
-# --> adding a new value to identifier
-#post request has to be adjusted
 
-#@api_view(['POST'])
-#def create_user_address(request, user_id):
-#	try:
-#		user = userModel.objects.get(id=user_id) 
-#	except:
-#		return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
-#	serializer = addressSerializer(data=request.data)
-#	if (serializer.is_valid()):
-#		address = serializer.save()
-#		user.address_id = address #set address id in the user model to the new address
-#		user.save()
-#		serializer = userSerializer(user, context={'request': request}) #only one user
-#		print ('user', user)
-#		return Response(serializer.data, status=status.HTTP_201_CREATED)
-#	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['GET','PUT','DELETE'])
+def single_user_request(request, pk): #get one user with the specific
+	try: 
+		user = userModel.objects.get(id=pk)
+	except userModel.DoesNotExist:
+		return Response(status=status.HTTP_404_NOT_FOUND)
 
-#this will get one user or modify / detete one user, using the primary key of the entity
+	if(request.method == 'GET'):
+		serializer = userSerializer(user, context={'request':request})
+		return Response(serializer.data, status=status.HTTP_200_OK)
 
-#@api_view(['GET','PUST','DELETE'])
-#def user(request, pk):
-#	try:
-#		user = userModel.objects.get(id=pk)  #check if the instance exist
-#	except userModel.DoesNotExist:
-#		return Response(status=status.HTTP_404_NOT_FOUND)
+	elif(request.method == 'PUT'):
+		serializer = userSerializer(user, data=request.data, context={'request':request})
+		if(serializer.is_valid()):
+			serializer.save()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	else:
+		user.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)	
 
-#	if (request.method == 'GET'):
-#		serializer = userModel(user)
-#		return Response(serializer.data, status=status.HTTP_200_OK)
 
-#	elif (request.method == 'PUST'):
-
-#	elif (request.method == 'DELETE'):
