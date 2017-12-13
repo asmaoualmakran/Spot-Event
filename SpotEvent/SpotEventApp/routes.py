@@ -8,6 +8,7 @@ urlpatterns = [
 	url(r'^$', controller.api_root),
     url(r'^user$', user.user_request, name="user"),
     url(r'^user/(?P<pk>[0-9]+)$', user.single_user_request, name="user-detail"),
+    url(r'^user/authenticate$',user.user_Authenticate),
    	url(r'^event$', event.event_request, name="event"),
    	url(r'^event/(?P<pk>[0-9]+)$', event.single_event_request, name="event-detail"),
     url(r'^address$',address.address_request, name="address"),

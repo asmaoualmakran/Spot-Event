@@ -8,13 +8,14 @@ class User(serializers.HyperlinkedModelSerializer):
 
 	class Meta: 
 		model = userModel
-		fields = ('id','username','first_name','last_name', 'birthday', 'email', 'address_id')			 
+		fields = ('id','username','first_name','last_name', 'birthday', 'email', 'address_id')		 
 		extra_kwargs = {'address_id': {'view_name': 'api:address-detail'}}
 
 
 class Create_user(serializers.Serializer):
-	_userFields = ('username','first_name','last_name','birthday', 'email')
+	_userFields = ('username', 'first_name','last_name','birthday', 'email', 'password') 
 	_addressFields = ('street','number', 'zip_code', 'city', 'country')
+#	_authFields = ('password')
 
 	username 	= serializers.CharField(max_length=30)
 	first_name 	= serializers.CharField(max_length=30)
@@ -26,14 +27,17 @@ class Create_user(serializers.Serializer):
 	zip_code 	= serializers.CharField(max_length=10)
 	city 		= serializers.CharField(max_length=20)
 	country 	= serializers.CharField(max_length=20)
+	password	= serializers.CharField(max_length=20)
 
 	def create(self, validated_data):
 		data = {key:validated_data[key] for key in self._addressFields}
 		address = addressModel.objects.create(**data)
 		data = {key:validated_data[key] for key in self._userFields}
+		print(validated_data)
 		print(data)
-		return userModel.objects.create(**data,address_id=address)
+		return userModel.objects.create_user(**data,address_id=address)
 
 
-
-
+class Authenticate_user(serializers.Serializer):
+	email 		= serializers.EmailField()
+	password	= serializers.CharField(max_length=20)
