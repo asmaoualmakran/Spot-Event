@@ -19,5 +19,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('SpotEventApp.routes', namespace='api'))
+    url(r'^api/', include('SpotEventApp.APIroutes', namespace='api')),
+    url(r'^', include('SpotEventApp.viewRoutes'))
 ]
