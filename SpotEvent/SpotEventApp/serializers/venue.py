@@ -16,12 +16,12 @@ class Create_venue(serializers.Serializer): #create own serializer to make sure 
 	_venueFields = ('venue_name',)
 	_addressFields = ('street','number','zip_code','city','country')
 
-	venue_name = serializers.CharField(max_length = 30)
-	street = serializers.CharField(max_length = 50)
-	number = serializers.CharField(max_length = 5)
-	zip_code = serializers.CharField(max_length = 10)
-	city = serializers.CharField(max_length = 20)
-	country = serializers.CharField(max_length = 20)
+	venue_name 	= serializers.CharField(max_length=30)
+	street 		= serializers.CharField(max_length=50)
+	number 		= serializers.CharField(max_length=5)
+	zip_code 	= serializers.CharField(max_length=10)
+	city 		= serializers.CharField(max_length=20)
+	country 	= serializers.CharField(max_length=20)
 
 	def create(self, validated_data):
 		data = {key:validated_data[key] for key in self._addressFields}

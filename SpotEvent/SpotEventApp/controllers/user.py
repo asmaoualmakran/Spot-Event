@@ -1,8 +1,10 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.contrib.auth import authenticate
 from SpotEventApp.serializers.user import User as userSerializer
 from SpotEventApp.serializers.user import Create_user as Create_userSerializer
+from SpotEventApp.serializers.user import Authenticate_user as Authenticate_userSerializer
 from SpotEventApp.models.user import User as userModel
 from SpotEventApp.serializers.address import Address as addressSerializer
 #identifier serializer doesn't have to imported, inheritance form that class
@@ -50,4 +52,19 @@ def single_user_request(request, pk): #get one user with the specific
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)	
 
-
+@api_view(['POST'])
+def user_Authenticate(request):
+	print(request.data)
+	serializer = Authenticate_userSerializer(data=request.data, context={'request':request})
+	if(serializer.is_valid()):
+		print("PRINTOUT",serializer.data['password'])
+		user = authenticate(username=serializer.data['email'], password=serializer.data['password'])
+		print(user)
+		if user is not None and user.is_active:
+		    # A backend authenticated the credentials
+		    return Response(status=status.HTTP_200_OK)
+		else:
+		    # No backend authenticated the credentials
+		    return Response(status=status.HTTP_403_FORBIDDEN)
+	else:
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

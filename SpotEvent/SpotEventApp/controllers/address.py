@@ -47,11 +47,9 @@ def single_address_request(request, pk):
 		# the address is still a foreing key of an user- or venue entity, if so deletino is not allowed 
 		# otherwise we delete the address entity
 
-		try:
-			identifier = identifierModel.objects.get(address_id=pk)
-		except identifierModel.DoesNotExist:
+		if(identifierModel.objects.filter(address_id=pk).exists()):
+			return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+		else:
 			address.delete()
 			return Response(status=status.HTTP_204_NO_CONTENT)
-
-		return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-		
+	
