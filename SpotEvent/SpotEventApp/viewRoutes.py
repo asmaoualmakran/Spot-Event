@@ -6,7 +6,16 @@ from SpotEventApp import views
 
 urlpatterns = [
 	url(r'^$', controller.api_root),
-    url(r'^user$', views.index, name="user"),
+    url(r'^login$', views.login, name="login"),
+    url(r'^profile$', views.profile, name="profile"),
+    url(r'^event$', views.event, name="event"),
+    url(r'^address$', views.address, name="address"),
+    url(r'^browse$', views.browse, name="browse"),
+    url(r'^spotlight$', views.spotlight, name="spotlight"),
+    url(r'^review$', views.review, name="review"),
+    url(r'^venue$', views.venue, name="venue"),
+
+
     # url(r'^user/(?P<pk>[0-9]+)$', user.single_user_request, name="user-detail"),
     # url(r'^user/authenticate$',user.user_Authenticate),
    	# url(r'^event$', event.event_request, name="event"),
