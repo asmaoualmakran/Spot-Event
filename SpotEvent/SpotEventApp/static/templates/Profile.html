@@ -53,19 +53,18 @@
       </div>
     </nav>
 
-
-
-    <p>Username: <strong data-bind="text: userName"></strong></p>
-    <p>First name: <strong data-bind="text: firstName"></strong></p>
-    <p>Last name: <strong data-bind="text: lastName"></strong></p>
-    <p>Email: <strong data-bind="text: email"></strong></p>
-    <p>Birthdate: <strong data-bind="text: birthdate"></strong></p>
-    <p>Password: <strong data-bind="text: password"></strong></p>
-
-
-
-
-
+    <div class="container-fluid" style='text-align : center'>
+      <form data-bind="submit:submit">
+        <p>Username: <input data-bind="value: userName"></p>
+        <p>First name: <input data-bind="value: firstName"></p>
+        <p>Last name: <input data-bind="value: lastName"></p>
+        <p>Email: <input type='email' data-bind="value: email"></p>
+        <p>Birthdate: <input data-bind="value: birthdate"></p>
+        <p>Password: <input type='password' data-bind="value: password"></p>
+        <button type="Submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-secondary" data-bind='click: getProfile'>Reset</button>
+      </form>
+    </div>
 
   </body>
   <footer>
