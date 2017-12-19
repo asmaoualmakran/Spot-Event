@@ -7,6 +7,8 @@
 
   <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.css"/>
 
+
+
 </head>
 
   <body>
@@ -54,16 +56,19 @@
     </nav>
 
     <div class="container-fluid" style='text-align : center'>
-      <form data-bind="submit:submit">
-        <p>Username: <input data-bind="value: userName"></p>
-        <p>First name: <input data-bind="value: firstName"></p>
-        <p>Last name: <input data-bind="value: lastName"></p>
-        <p>Email: <input type='email' data-bind="value: email"></p>
-        <p>Birthdate: <input data-bind="value: birthdate"></p>
-        <p>Password: <input type='password' data-bind="value: password"></p>
-        <button type="Submit" class="btn btn-primary">Save</button>
-        <button class="btn btn-secondary" data-bind='click: getProfile'>Reset</button>
-      </form>
+      <p>Username: <input data-bind="value: profile.username"></p>
+      <p>First name: <input data-bind="value: profile.first_name"></p>
+      <p>Last name: <input data-bind="value: profile.last_name"></p>
+      <p>Email: <input type='email' data-bind="value: profile.email"></p>
+      <p>Birthdate: <input data-bind="value: profile.birthday"></p>
+      <p>Street: <input data-bind="value: profile2.street"></p>
+      <p>Number : <input data-bind="value: profile2.number"></p>
+      <p>Zipcode : <input data-bind="value: profile2.zip_code"></p>
+      <p>City : <input data-bind="value: profile2.city"></p>
+      <p>Country: <input data-bind="value: profile2.country"></p>
+
+      <button data-bind="click: saveProfile" class="btn btn-primary">Save</button>
+      <button class="btn btn-secondary" data-bind='click: getProfile'>Reset</button>
     </div>
 
   </body>

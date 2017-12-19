@@ -54,13 +54,44 @@
     </nav>
 
     <div>
-      <p>Street : <strong data-bind="text: street"></strong></p>
-      <p>Number : <strong data-bind="text: number"></strong></p>
-      <p>Zipcode : <strong data-bind="text: zipcode"></strong></p>
-      <p>Country : <strong data-bind="text: country"></strong></p>
-    </div>
+      Event :
+      <p>Event Name : <strong data-bind = "text : event.event_name"></strong></p>
+      <p>Event Date : <strong data-bind = "text : event.event_date"></strong></p>
+      <p>Artists : <strong data-bind = "text : event.artists"></strong></p>
 
-    TODO : Google MAPS API
+      Venue :
+      <p>Venue Name : <strong data-bind = "text : venue.venue_name"></strong></p>
+
+      Address :
+      <p>Street : <strong data-bind="text: address.street"></strong></p>
+      <p>Number : <strong data-bind="text: address.number"></strong></p>
+      <p>Zipcode : <strong data-bind="text: address.zip_code"></strong></p>
+      <p>City : <strong data-bind="text: address.city"></strong></p>
+      <p>Country : <strong data-bind="text: address.country"></strong></p>
+      TODO : Google MAPS API
+
+      User :
+      <p>Username : <strong data-bind="text: user.username"></strong></p>
+      <p>Email : <strong data-bind="text: user.email"></strong></p>
+
+      <button data-bind="click: openReviews" class="btn btn-primary">See Reviews</button>
+      <button data-bind="click: closeReviews" class="btn btn-secondary">Hide Reviews</button>
+
+    </div>
+    Reviews :
+      <div>
+        <table data-bind="visible: reviewsVisible">
+          <thead>
+            <tr><th>Score</th><th>Review</th></tr>
+          </thead>
+          <tbody data-bind="foreach: reviews">
+            <tr>
+              <td data-bind="text: score"></td>
+              <td data-bind="text: review"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
 
 
@@ -69,6 +100,7 @@
 
 
   </body>
+  
   <footer>
     <script src="/static/js/addressModel.js"></script>
   </footer>

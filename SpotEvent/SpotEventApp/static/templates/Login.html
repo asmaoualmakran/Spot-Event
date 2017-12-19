@@ -55,26 +55,29 @@
 
 
 
-
+    <div>
 		Register an new account :
-		<form data-bind="submit:submit">
-			TODO: Databind the form : http://knockoutjs.com/documentation/submit-binding.html
-			<p> Username : <input data-bind = "textInput: data.userNameR" placeholder="Username"/></p>
-			<p> First Name : <input data-bind="textInput: data.firstName" placeholder="First Name" /></p>
-			<p> Last Name : <input data-bind = "textInput: data.lastName" placeholder="Last Name"/></p>
+			<p> Username : <input data-bind = "textInput: data.username" placeholder="Username"/></p>
+			<p> First Name : <input data-bind="textInput: data.first_name" placeholder="First Name" /></p>
+			<p> Last Name : <input data-bind = "textInput: data.last_name" placeholder="Last Name"/></p>
 			<p> Email :  <input type="email" data-bind = "textInput: data.email" placeholder="email@email.com"/></p>
-			<p> Birthdate : TODO: input a birthdate</p>
-			<p> Password : <input type="password" data-bind = "textInput: data.passwordR" placeholder="Password"></p>
-			<button type="Submit" class="btn btn-primary">Register</button>
-		</form>
+			<p> Birthdate : <input data-bind = "textInput: data.birthday"></p>
+			<p> Password : <input type="password" data-bind = "textInput: data.password" placeholder="Password"></p>
 
+      <p> Street : <input data-bind = "textInput: data.street" placeholder="Street"/></p>
+      <p> Number : <input data-bind = "textInput: data.number" placeholder="Number"/></p>
+      <p> City : <input data-bind = "textInput: data.city" placeholder="City"/></p>
+      <p> Zipcode : <input data-bind = "textInput: data.zip_code" placeholder="Zipcode"/></p>
+      <p> Country : <input data-bind = "textInput: data.country" placeholder="Country"/></p>
+			<p><button data-bind = 'click: register' class="btn btn-primary">Register</button></p>
+    </div>
+
+    <div>
 		Login with an existing account :
-		<form data-bind="????????">
-			TODO: Databind the form : http://knockoutjs.com/documentation/submit-binding.html
-			<p> Username : <input data-bind = "textInput: data.userNameL" placeholder="Username"/></p>
-			<p> Password : <input type="password" data-bind = "textInput: data.passwordL" placeholder="Password"></p>
-			<button type="Submit" class="btn btn-primary">Login</button>
-		</form>
+			<p> Username : <input data-bind = "textInput: data2.email" placeholder="Email"/></p>
+			<p> Password : <input type="password" data-bind = "textInput: data2.password" placeholder="Password"></p>
+			<button data-bind="click: login" class="btn btn-primary">Login</button>
+		</div>
 
 	</body>
   <footer>
