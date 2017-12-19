@@ -55,14 +55,17 @@ def single_user_request(request, pk): #get one user with the specific
 def user_Authenticate(request):
 	serializer = Authenticate_userSerializer(data=request.data, context={'request':request})
 	if(serializer.is_valid()):
-		user = authenticate(username=serializer.data['email'], password=serializer.data['password'])
-		user_object = userModel.objects.get(email=serializer.data['email'])
-		serializer = userSerializer(user_object, context={'request':request})
-		if user is not None and user.is_active:
-		    # A backend authenticated the credentials
-			return Response(serializer.data, status=status.HTTP_200_OK)
-		else:
-		    # No backend authenticated the credentials
-			return Response(status=status.HTTP_403_FORBIDDEN)
+		try:
+			user = authenticate(username=serializer.data['email'], password=serializer.data['password'])
+			user_object = userModel.objects.get(email=serializer.data['email'])
+			serializer = userSerializer(user_object, context={'request':request})
+			if user is not None and user.is_active:
+			    # A backend authenticated the credentials
+				return Response(serializer.data, status=status.HTTP_200_OK)
+			else:
+			    # No backend authenticated the credentials
+				return Response(status=status.HTTP_403_FORBIDDEN)
+		except userModel.DoesNotExist: 
+			return Response(status=status.HTTP_404_NOT_FOUND) 
 	else:
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
