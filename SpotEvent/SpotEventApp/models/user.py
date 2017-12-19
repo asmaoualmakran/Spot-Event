@@ -8,7 +8,6 @@ from django.contrib.auth.hashers import make_password
 #https://stackoverflow.com/questions/42075882/manager-object-has-no-attribute-get-by-natural-key
 class UserAccountManager(BaseUserManager):
 	def create_user(self, **kwargs):
-		print('creating', kwargs['password'])
 		if not kwargs['email']:
 			raise ValueError('Email must be set!')
 		user = self.model(**kwargs)
@@ -23,8 +22,6 @@ class UserAccountManager(BaseUserManager):
 		return user
 
 	def get_by_natural_key(self, email_):
-		print(email_)
-		print(self.model)
 		return self.get(email=email_)
 
 
@@ -40,3 +37,4 @@ class User(Identifier, AbstractUser):
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ['first_name', 'last_name']
 
+#imageField

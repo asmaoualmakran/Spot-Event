@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Path where all media (images) are saved 
+MEDIA_ROOT = '/Spot-Event/SpotEvent/media'
+
+MEDIA_URL = '/media/'
 
 # Application definition
 
