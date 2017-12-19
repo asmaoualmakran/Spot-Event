@@ -24,11 +24,9 @@ def user_request(request):
 		serializer	= Create_userSerializer(data=request.data) # hier creeeren 
 		if (serializer.is_valid()):
 			user = serializer.save()
-			print('created')
 			serializer = userSerializer(user, context={'request':request} )	# de gecreeerde user terug geven
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 @api_view(['GET','PUT','DELETE'])
@@ -52,19 +50,19 @@ def single_user_request(request, pk): #get one user with the specific
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)	
 
+
 @api_view(['POST'])
 def user_Authenticate(request):
-	print(request.data)
 	serializer = Authenticate_userSerializer(data=request.data, context={'request':request})
 	if(serializer.is_valid()):
-		print("PRINTOUT",serializer.data['password'])
 		user = authenticate(username=serializer.data['email'], password=serializer.data['password'])
-		print(user)
+		user_object = userModel.objects.get(email=serializer.data['email'])
+		serializer = userSerializer(user_object, context={'request':request})
 		if user is not None and user.is_active:
 		    # A backend authenticated the credentials
-		    return Response(status=status.HTTP_200_OK)
+			return Response(serializer.data, status=status.HTTP_200_OK)
 		else:
 		    # No backend authenticated the credentials
-		    return Response(status=status.HTTP_403_FORBIDDEN)
+			return Response(status=status.HTTP_403_FORBIDDEN)
 	else:
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
