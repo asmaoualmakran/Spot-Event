@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 from SpotEventApp.controllers import controller
-from SpotEventApp.controllers import user, event, venue, address, review
+from SpotEventApp.controllers import user, event, venue, address, review, spotifyAuth
 
 
 urlpatterns = [
@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^venue$',venue.venue_request, name="venue"),
     url(r'^venue/(?P<pk>[0-9]+)$',venue.single_venue_request, name="venue-detail"),
     url(r'^review$', review.review_request, name="review"),
-    url(r'^review/(?P<pk>[0-9]+)$',review.single_review_request, name="review-detail")
+    url(r'^review/(?P<pk>[0-9]+)$',review.single_review_request, name="review-detail"),
+    url(r'^spotifyAuth$', spotifyAuth.login, name=None)
 ]
 
