@@ -17,6 +17,5 @@ urlpatterns = [
     url(r'^venue/(?P<pk>[0-9]+)$',venue.single_venue_request, name="venue-detail"),
     url(r'^review$', review.review_request, name="review"),
     url(r'^review/(?P<pk>[0-9]+)$',review.single_review_request, name="review-detail"),
-    url(r'^spotifyAuth$', spotifyAuth.login, name=None)
 ]
 

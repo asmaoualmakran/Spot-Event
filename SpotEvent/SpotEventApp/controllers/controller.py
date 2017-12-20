@@ -12,6 +12,5 @@ def api_root(request, format=None):
         'address': reverse('api:address', request=request, format=format),
         'venue': reverse('api:venue', request=request, format=format),
         'event': reverse('api:event', request=request, format=format),
-        'review': reverse('api:review', request=request, format=format)
-		
+        'review': reverse('api:review', request=request, format=format),
     })
