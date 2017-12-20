@@ -20,23 +20,23 @@ var viewModel = new function()
 
 
     self.data2 = {
-        email : ko.observable("test@tester.com"),
-        password : ko.observable("password"),
+        'email' : ko.observable('test@tester.com'),
+        'password' : ko.observable('password'),
+    }
+
+    self.redirect = function() {
+        window.location.href="browse"
     }
 
 
 
 
     self.register = function(){
-    	console.log("Register :",self.data,ko.toJSON(self.data))
-    	$.post('/api/user',ko.toJSON(self.data))
+    	$.post('/api/user',ko.toJS(self.data),self.redirect)
     };
 
     self.login = function(){
-        console.log(ko.toJSON(self.data2))
-        var JsonData = ko.toJSON(self.data2);
-        console.log(self.data2)
-        $.post('/api/user/authenticate',JsonData)
+        $.post('/api/user/authenticate',ko.toJS(self.data2),self.redirect)
     };
 
 
