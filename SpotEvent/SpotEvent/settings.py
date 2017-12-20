@@ -75,6 +75,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SpotEvent.wsgi.application'
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
 #Set the authenication backends
 
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
