@@ -7,12 +7,12 @@ class SpotifyAuth(serializers.HyperlinkedModelSerializer):
 
 	class Meta: 
 		model = spotifyAuthModel
-		fields = ('id', 'user_id', 'spotify_acces_token', 'spotify_refresh_token')
-		extra_kwargs = 'user_id':{'view_name': 'api:user-detail'}
+		fields = ('id', 'user_id', 'access_token', 'refresh_token')
+	#	extra_kwargs = 'user_id':{'view_name': 'api:user-detail'}
 
 
 class Create_spotifyAuth(serializers.ModelSerializer):
 
 	class Meta: 
 		model = spotifyAuthModel
-		fields = ('user_id', 'spotify_acces_token', 'spotify_refresh_token')
+		fields = ('user_id', 'access_token', 'refresh_token')
