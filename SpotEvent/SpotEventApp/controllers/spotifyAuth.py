@@ -8,7 +8,7 @@ from SpotEventApp.serializers.spotifyAuth import Create_spotifyAuth as Create_sp
 from SpotEventApp.serializers.spotifyAuth import SpotifyAuth as SpotifyAuthSerializer
 from SpotEventApp.models.spotifyAuth import spotifyAuth as spotifyAuthModel
 import base64, requests, json
-
+from rest_framework.reverse import reverse
 
 # When user surfs to /login, the user will be redirected 
 #to the autorize_link defined in the config
@@ -20,9 +20,14 @@ def login(request):
 # create the authorisation link 
 @api_view(['GET'])
 def request_Auth(request):
+	user_id = int(request.COOKIES['id'])
+	# format={'pk':user_id}
+	# user_id = reverse('api:user-detail', request=request, kwargs=format)
+	print(user_id)
 	code = request.GET.get('code') #we querry out the code, we need this for the post request back to Spotify API 
 	request_link = requests.post(config.token_link, data={'code': code, 'grant_type': 'authorization_code', 'redirect_uri': 'http://127.0.0.1:8000/authed', 'client_id': config.PUBLIC_KEY, 'client_secret': config.PRIVATE_KEY})
 	content = json.loads(request_link.content.decode('utf-8'))
+	content['user_id'] = user_id
 	print(content)
 	serializer = Create_spotifyAuthSerializer(data=content)
 	if (serializer.is_valid()):

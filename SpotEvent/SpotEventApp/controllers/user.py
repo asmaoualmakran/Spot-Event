@@ -1,4 +1,5 @@
 from rest_framework import status
+from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
@@ -57,11 +58,15 @@ def user_Authenticate(request):
 	if(serializer.is_valid()):
 		try:
 			user = authenticate(username=serializer.data['email'], password=serializer.data['password'])
+			print(user)
 			user_object = userModel.objects.get(email=serializer.data['email'])
 			serializer = userSerializer(user_object, context={'request':request})
 			if user is not None and user.is_active:
 			    # A backend authenticated the credentials
-				return Response(serializer.data, status=status.HTTP_200_OK)
+				response = Response(serializer.data, status=status.HTTP_200_OK)
+				response.set_cookie('id',user_object.id)
+				#return Response(serializer.data, status=status.HTTP_200_OK)
+				return response
 			else:
 			    # No backend authenticated the credentials
 				return Response(status=status.HTTP_403_FORBIDDEN)
