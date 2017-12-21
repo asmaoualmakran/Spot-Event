@@ -1,0 +1,58 @@
+*{
+	padding : 5;
+	margin : 0;
+	border : 5;
+	font-size : 110%;
+	color:black;
+}
+
+.container-fluid{
+	color:red;
+}
+
+.blended_grid{
+	border-width : 5px;
+	border-style : solid;
+	border-color : white;
+	font : bold 12px/15px Georgia, serif;
+	font-size: medium;
+	color : black;
+	display : block;
+	width : 50%;
+	overflow : auto;
+	margin : 5% auto auto 25%;
+	}
+
+	.topBanner{
+		float : left;
+		clear : none;height : 10%;
+		height : 10%;
+		width : 100%;
+	}
+
+	.middleBanner{
+		padding : 15;
+		font-size : small;
+		float : left;
+		clear : none;
+		height : 10%;
+		width : 100%;
+		}
+
+	.middle2Banner{
+		padding : 15;
+		font-size : small;
+		float : left;
+		clear : none;
+		height : 10%;
+		width : 100%;
+	}
+
+	.bottomBanner{
+		padding : 15;
+		font-size : small;
+		float : left;
+		clear : none;
+		height : 10%;
+		width : 100%;
+	}

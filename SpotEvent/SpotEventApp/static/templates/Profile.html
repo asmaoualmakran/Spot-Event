@@ -1,0 +1,76 @@
+<html>
+<head>
+  <script src="/static/js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+  <script src="/static/js/Knockout.js"></script>
+
+  <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css"/>
+  <link rel="stylesheet" href="/static/css/event.css">
+
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Spot-Event</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+      aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapsed" href="./login">Home
+              <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./browse">Browse</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./spotlight">Spotlight</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="./profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./event">Event</a>
+          </li>
+          <li class="nav-item">
+            <a class = "nav-link" href="./addevent">Add Event</a>
+          </li>
+        </ul>
+
+          <input data-bind = "textInput: searchstring" placeholder="search"/>
+          <button data-bind = 'click: search' class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </div>
+    </nav>
+
+    <div class="container-fluid" style='text-align : center'>
+      <p>Username: <input data-bind="value: profile.username"></p>
+      <p>First name: <input data-bind="value: profile.first_name"></p>
+      <p>Last name: <input data-bind="value: profile.last_name"></p>
+      <p>Email: <input type='email' data-bind="value: profile.email"></p>
+      <p>Birthdate: <input data-bind="value: profile.birthday"></p>
+      <p>Street: <input data-bind="value: profile2.street"></p>
+      <p>Number : <input data-bind="value: profile2.number"></p>
+      <p>Zipcode : <input data-bind="value: profile2.zip_code"></p>
+      <p>City : <input data-bind="value: profile2.city"></p>
+      <p>Country: <input data-bind="value: profile2.country"></p>
+
+      <button data-bind="click: saveProfile" class="btn btn-primary">Save</button>
+      <button class="btn btn-secondary" data-bind='click: getProfile'>Reset</button>
+    </div>
+
+  </body>
+  <footer>
+    <script src="/static/js/profileModel.js"></script>
+  </footer>
+
+</html>
+
+
+
+
+
