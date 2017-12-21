@@ -15,10 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-
+from django.conf import settings 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('SpotEventApp.APIroutes', namespace='api')),
-    url(r'^', include('SpotEventApp.viewRoutes'))
+    url(r'^', include('SpotEventApp.viewRoutes')),
+
+    # https://stackoverflow.com/questions/5517950/django-media-url-and-media-root
+  #  if settings.DEBUG:
+    # static files (images, css, javascript, etc.)
+  #  urlpatterns += patterns('',
+  #      (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+  #      'document_root': settings.MEDIA_ROOT}))
 ]

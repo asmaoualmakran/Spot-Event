@@ -1,11 +1,12 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib import admin
 from SpotEventApp.controllers import controller
-from SpotEventApp.controllers import user, event, venue, address, review
+from SpotEventApp.controllers import user, event, venue, address, review, spotifyAuth
 from SpotEventApp import views
 
 urlpatterns = [
 	url(r'^$', controller.api_root),
+
     url(r'^login$', views.login, name="login"),
     url(r'^profile/(?P<pk>[0-9]+)$', views.profile, name="profile"),
     url(r'^event/(?P<pk>[0-9]+)$', views.event, name="event"),
@@ -14,6 +15,8 @@ urlpatterns = [
     url(r'^spotlight$', views.spotlight, name="spotlight"),
     url(r'^addevent$', views.addevent, name="addevent"),
     url(r'^search/(?P<pk>.+)$', views.search, name="search"),
+    url(r'^spotifyAuth$', spotifyAuth.login, name=None),
+    url(r'^authed$', spotifyAuth.request_Auth, name=None)
     
 
 

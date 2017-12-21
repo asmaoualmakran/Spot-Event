@@ -15,7 +15,6 @@ class User(serializers.HyperlinkedModelSerializer):
 class Create_user(serializers.Serializer):
 	_userFields = ('username', 'first_name','last_name','birthday', 'email', 'password') 
 	_addressFields = ('street','number', 'zip_code', 'city', 'country')
-#	_authFields = ('password')
 
 	username 	= serializers.CharField(max_length=30)
 	first_name 	= serializers.CharField(max_length=30)
@@ -33,11 +32,11 @@ class Create_user(serializers.Serializer):
 		data = {key:validated_data[key] for key in self._addressFields}
 		address = addressModel.objects.create(**data)
 		data = {key:validated_data[key] for key in self._userFields}
-		print(validated_data)
-		print(data)
 		return userModel.objects.create_user(**data,address_id=address)
-
 
 class Authenticate_user(serializers.Serializer):
 	email 		= serializers.EmailField()
 	password	= serializers.CharField(max_length=20)
+
+
+
