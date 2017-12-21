@@ -27,21 +27,27 @@
           <li class="nav-item">
             <a class="nav-link" href="./browse">Browse</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="./spotlight">Spotlight</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./profile">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./event">Event</a>
+            <a class="nav-link" href="./venue">Venue</a>
           </li>
           <li class="nav-item">
-            <a class = "nav-link" href="./addevent">Add Event</a>
+            <a class="nav-link" href="./address">Address</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./event">Event</a>
+          </li>
+          <li class="nav-item active">
+            <a class = "nav-link" href="./review">Review</a>
           </li>
         </ul>
 
-          <input data-bind = "textInput: searchstring" placeholder="search"/>
+          <input data-bind = "textInput: searchstring2" placeholder="search"/>
           <button data-bind = 'click: search' class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </div>
     </nav>
@@ -68,8 +74,41 @@
           <!--
           <strong data-bind ="text:address"></strong> <br>
           <strong data-bind ="text:user.email"></strong> -->
+          <button data-bind='click: function(){$root.openEvent(id)}' class="btn btn-secondary my-2 my-sm-0">Open Event</button>
         </div>
       </div>
+      <br>
+    </div>
+
+
+    Ticketmaster :
+    <div data-bind="foreach: ticketmaster">
+      <div class="blended_grid bg-dark">
+        <div class="topBanner">
+          <strong data-bind ="text:name"></strong> <br>
+          <strong data-bind ="text:dates.start.localDate"></strong>
+        </div>
+        <div class="middleBanner">
+          Music :
+          <div data-bind = "foreach: _embedded.attractions">
+            <strong data-bind ="text:name"></strong>
+          </div>
+          <strong data-bind ="text:classifications[0].genre.name"></strong> <br>
+        </div>
+        <div class="middle2Banner">
+          <br>
+          Venue :
+          <div data-bind ="foreach: _embedded.venues">
+            <strong data-bind="text: name"></strong><br>
+            <strong data-bind="text: address.line1"></strong><br>
+            <strong data-bind="text: city.name"></strong>
+
+          </div>
+        </div>
+        <div class="bottomBanner">
+        </div>
+      </div>
+      <br>
       <br>
     </div>
 
@@ -80,9 +119,10 @@
 
 
 
+
 	</body>
   <footer>
-    <script src="/static/js/spotlightModel.js"></script>
+    <script src="/static/js/searchModel.js"></script>
   </footer>
 
 </html>

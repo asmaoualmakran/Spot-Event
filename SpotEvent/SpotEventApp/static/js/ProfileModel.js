@@ -3,6 +3,16 @@ var viewModel = new function()
 {
     var self = this;
 
+    self.searchstring = ko.observable('');
+
+    self.search = function(){
+        window.location.href = "search/" + self.searchstring(); 
+    }
+    
+    var url = window.location.href;
+    var userID = url.slice(30)
+    console.log('ID :',userID);
+
     self.profile = {
         username : ko.observable(),
         first_name : ko.observable(),
@@ -42,10 +52,11 @@ var viewModel = new function()
 
     self.getProfile = function(){
     	console.log('getProfile');
-    	var json = $.getJSON('/api/user/1',function(data){
+    	var json = $.getJSON('/api/user/'+ userID,function(data){
             console.log('Profile :',data);
             createProfile(data);
             self.getAddress();
+            console.log(self.profile.username)
         });
     }
 

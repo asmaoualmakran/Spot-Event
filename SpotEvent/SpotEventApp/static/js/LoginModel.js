@@ -2,6 +2,12 @@
 var viewModel = new function()
 {
     var self = this;
+
+    self.searchstring = ko.observable('');
+
+    self.search = function(){
+        window.location.href = "search/" + self.searchstring(); 
+    }
     
 
     self.data = {
@@ -27,9 +33,6 @@ var viewModel = new function()
     self.redirect = function() {
         window.location.href="browse"
     }
-
-
-
 
     self.register = function(){
     	$.post('/api/user',ko.toJS(self.data),self.redirect)

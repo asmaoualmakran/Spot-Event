@@ -8,11 +8,10 @@
   <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css"/>
   <link rel="stylesheet" href="/static/css/event.css">
 
-
 </head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">Spot-Event</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
       aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,13 +30,13 @@
           <li class="nav-item">
             <a class="nav-link" href="./spotlight">Spotlight</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="./profile">Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./event">Event</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class = "nav-link" href="./addevent">Add Event</a>
           </li>
         </ul>
@@ -47,25 +46,23 @@
       </div>
     </nav>
 
-    <div class="container-fluid" style='text-align : center'>
-      <p>Username: <input data-bind="value: profile.username"></p>
-      <p>First name: <input data-bind="value: profile.first_name"></p>
-      <p>Last name: <input data-bind="value: profile.last_name"></p>
-      <p>Email: <input type='email' data-bind="value: profile.email"></p>
-      <p>Birthdate: <input data-bind="value: profile.birthday"></p>
-      <p>Street: <input data-bind="value: profile2.street"></p>
-      <p>Number : <input data-bind="value: profile2.number"></p>
-      <p>Zipcode : <input data-bind="value: profile2.zip_code"></p>
-      <p>City : <input data-bind="value: profile2.city"></p>
-      <p>Country: <input data-bind="value: profile2.country"></p>
+            Add event :
+            <p>Name :<input data-bind="value :event.event_name" placeholder="Event name"></p>
+            <p>Date :<input data-bind="value :event.event_date" placeholder="Event name"></p>
+            <p>Artistst :<input data-bind="value :event.artists" placeholder="Event name"></p>
+            <p>Genre : <input data-bind="value :event.genre" placeholder="Event name"></p>
 
-      <button data-bind="click: saveProfile" class="btn btn-primary">Save</button>
-      <button class="btn btn-secondary" data-bind='click: getProfile'>Reset</button>
-    </div>
+            <p> Street : <input data-bind = "textInput: venue.street" placeholder="Street"/></p>
+            <p> Number : <input data-bind = "textInput: venue.number" placeholder="Number"/></p>
+            <p> City : <input data-bind = "textInput: venue.city" placeholder="City"/></p>
+            <p> Zipcode : <input data-bind = "textInput: venue.zip_code" placeholder="Zipcode"/></p>
+            <p> Country : <input data-bind = "textInput: venue.country" placeholder="Country"/></p>
 
-  </body>
+            <p><button data-bind = 'click: addEvent' class="btn btn-primary">Add Event</button></p>
+
+	</body>
   <footer>
-    <script src="/static/js/profileModel.js"></script>
+    <script src="/static/js/addEventModel.js"></script>
   </footer>
 
 </html>
