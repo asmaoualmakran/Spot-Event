@@ -1,5 +1,7 @@
 from rest_framework import status
 from django.http import HttpResponse
+from django.shortcuts import redirect
+from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
@@ -32,8 +34,9 @@ def user_request(request):
 
 @api_view(['GET','PUT','DELETE'])
 def single_user_request(request, pk): #get one user with the specific
-#	if(! 'id' in request.COOKIES):
-#		redirect()
+
+	if ('id' not in request.COOKIES):
+		return Response(status=status.HTTP_403_FORBIDDEN)
 
 	try: 
 		user = userModel.objects.get(id=pk)
