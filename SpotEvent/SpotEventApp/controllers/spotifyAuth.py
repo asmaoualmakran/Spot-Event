@@ -14,12 +14,20 @@ from rest_framework.reverse import reverse
 #to the autorize_link defined in the config
 @api_view(['GET'])
 def login(request):
+	
+	if ('id' not in request.COOKIES):
+		return Response(status=status.HTTP_403_FORBIDDEN)
+
 	return redirect(config.authorize_link)
 
 
 # create the authorisation link 
 @api_view(['GET'])
 def request_Auth(request):
+
+	if ('id' not in request.COOKIES):
+		return Response(status=status.HTTP_403_FORBIDDEN)
+
 	user_id = int(request.COOKIES['id'])
 	# format={'pk':user_id}
 	# user_id = reverse('api:user-detail', request=request, kwargs=format)
@@ -40,6 +48,10 @@ def request_Auth(request):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def single_spotifyAuth_request(request, pk):
+
+	if ('id' not in request.COOKIES):
+		return Response(status=status.HTTP_403_FORBIDDEN)
+
 	try:
 		spotifyAuth = spotifyAuthModel.objects.get(id=pk)
 	except spotifyAuth.DoesNotExist:
@@ -50,6 +62,7 @@ def single_spotifyAuth_request(request, pk):
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
 	elif(request.method == 'PUT'):
+
 		serializer = SpotifyAuthSerializer(spotifyAuth, data=request.data, content={'request':request})
 		if(serializer.is_valid()):
 			serializer.save()
@@ -60,8 +73,13 @@ def single_spotifyAuth_request(request, pk):
 		spotifyAuth.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)	
 
+
 @api_view(['GET'])
 def refresh_token(request, pk):
+
+	if ('id' not in request.COOKIES):
+		return Response(status=status.HTTP_403_FORBIDDEN)
+
 	try:
 		spotifyAuth = spotifyAuthModel.objects.get(id=pk)
 	except spotifyAuth.DoesNotExist:
