@@ -23,12 +23,10 @@ def request_Auth(request):
 	user_id = int(request.COOKIES['id'])
 	# format={'pk':user_id}
 	# user_id = reverse('api:user-detail', request=request, kwargs=format)
-	print(user_id)
 	code = request.GET.get('code') #we querry out the code, we need this for the post request back to Spotify API 
 	request_link = requests.post(config.token_link, data={'code': code, 'grant_type': 'authorization_code', 'redirect_uri': 'http://127.0.0.1:8000/authed', 'client_id': config.PUBLIC_KEY, 'client_secret': config.PRIVATE_KEY})
 	content = json.loads(request_link.content.decode('utf-8'))
 	content['user_id'] = user_id
-	print(content)
 	serializer = Create_spotifyAuthSerializer(data=content)
 	if (serializer.is_valid()):
 		auth = serializer.save()
@@ -62,4 +60,19 @@ def single_spotifyAuth_request(request, pk):
 		spotifyAuth.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)	
 
+@api_view(['GET'])
+def refresh_token(request, pk):
+	try:
+		spotifyAuth = spotifyAuthModel.objects.get(id=pk)
+	except spotifyAuth.DoesNotExist:
+		return Response(status=status.HTTP_404_NOT_FOUND)
 
+	refresh_token = spotifyAuth.refresh_token
+	request_link = requests.post(config.token_link, data={'grant_type': 'refresh_token', 'refresh_token': refresh_token, 'client_id': config.PUBLIC_KEY, 'client_secret': config.PRIVATE_KEY})
+	content = json.loads(request_link.content.decode('utf-8'))
+	serializer = SpotifyAuthSerializer(spotifyAuth, data=content, context={'request':request})
+	if(serializer.is_valid()):
+		serializer.save()
+		return  Response(serializer.data, status=status.HTTP_201_CREATED)
+	else:
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

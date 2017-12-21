@@ -32,6 +32,9 @@ def user_request(request):
 
 @api_view(['GET','PUT','DELETE'])
 def single_user_request(request, pk): #get one user with the specific
+#	if(! 'id' in request.COOKIES):
+#		redirect()
+
 	try: 
 		user = userModel.objects.get(id=pk)
 	except userModel.DoesNotExist:
