@@ -102,10 +102,10 @@
             <strong data-bind="text: name"></strong><br>
             <strong data-bind="text: address.line1"></strong><br>
             <strong data-bind="text: city.name"></strong>
-
           </div>
         </div>
         <div class="bottomBanner">
+          <button data-bind='click: function(){$root.openTicketEvent(id)}' class="btn btn-secondary my-2 my-sm-0">Open Event</button>
         </div>
       </div>
       <br>

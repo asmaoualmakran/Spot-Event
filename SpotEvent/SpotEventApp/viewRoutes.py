@@ -9,13 +9,12 @@ urlpatterns = [
     url(r'^login$', views.login, name="login"),
     url(r'^profile/(?P<pk>[0-9]+)$', views.profile, name="profile"),
     url(r'^event/(?P<pk>[0-9]+)$', views.event, name="event"),
-    url(r'^ticketevent/(?P<pk>([a-z]|[0-9])+)$', views.ticketevent, name="ticketevent"),
+    url(r'^ticketevent/(?P<pk>.+)$', views.ticketevent, name="ticketevent"),
     url(r'^browse$', views.browse, name="browse"),
     url(r'^spotlight$', views.spotlight, name="spotlight"),
     url(r'^addevent$', views.addevent, name="addevent"),
-    url(r'^search/(?P<pk>([a-z]|[0-9])+)$', views.search, name="search"),
+    url(r'^search/(?P<pk>.+)$', views.search, name="search"),
     
-
 
 
     # url(r'^user/(?P<pk>[0-9]+)$', user.single_user_request, name="user-detail"),

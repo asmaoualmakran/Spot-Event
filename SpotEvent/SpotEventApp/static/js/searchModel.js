@@ -6,7 +6,7 @@ var viewModel = new function()
     self.searchstring2 = ko.observable('');
 
     self.search = function(){
-        window.location.href = "search/" + self.searchstring(); 
+        window.location.href = "search/" + self.searchstring2(); 
     }
 
     var url = window.location.href;
@@ -16,6 +16,10 @@ var viewModel = new function()
 
     self.openEvent = function(id){
         window.location = "http://127.0.0.1:8000/event/" + id;
+    }
+
+    self.openTicketEvent = function(id){
+        window.location = "http://127.0.0.1:8000/ticketevent/" + id;
     }
 
    self.filterf = function(event){

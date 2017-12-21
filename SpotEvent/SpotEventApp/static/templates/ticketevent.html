@@ -49,24 +49,23 @@
 
     <div>
       Event :
-      <p>Event Name : <strong data-bind="text: $root.name"></strong></p>
-      <p>Event Date : <strong data-bind = "text : name"></strong></p> -->
-      <!--
+      <p>Event Name : <strong data-bind="text: event.name"></strong></p>
+      <p>Event Date : <strong data-bind = "text : event.date"></strong></p>
+      <p>Artists : </p>
+      <div data-bind="foreach: event.attractions">
+        <strong data-bind="text: name"> </strong><br>
+      </div>
+      
       Venue :
-      <p>Venue Name : <strong data-bind = "text : event._embedded.venues[0]"></strong></p>
-<!--
+      <p>Venue Name : <strong data-bind = "text : event.venue_name"></strong></p>
       Address :
-      <p>Street : <strong data-bind="text: address.street"></strong></p>
-      <p>Number : <strong data-bind="text: address.number"></strong></p>
-      <p>Zipcode : <strong data-bind="text: address.zip_code"></strong></p>
-      <p>City : <strong data-bind="text: address.city"></strong></p>
-      <p>Country : <strong data-bind="text: address.country"></strong></p>
-      -->
+      <p>Street : <strong data-bind="text: event.street"></strong></p>
+      <p>Zipcode : <strong data-bind="text: event.zip_code"></strong></p>
+      <p>City : <strong data-bind="text: event.city"></strong></p>
+      <p>Country : <strong data-bind="text: event.country"></strong></p>
       <div id="googleMap" style="width:50%;height:400px;"></div>
-<!--
-      User :
-      <p>Username : <strong data-bind="text: user.username"></strong></p>
-      <p>Email : <strong data-bind="text: user.email"></strong></p> -->
+
+      <p>Promoter : <strong data-bind="text: event.promoter"></strong></p>
 
   </body>
   

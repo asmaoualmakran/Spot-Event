@@ -17,21 +17,47 @@ var viewModel = new function()
     console.log('ID :', eventID);
 
     self.event = {
-        name : ko.observable()
+        name : ko.observable(),
+        date: ko.observable(),
+        venue_name : ko.observable(),
+        street : ko.observable(),
+        city : ko.observable(),
+        zip_code : ko.observable(),
+        country : ko.observable(),
+        promoter : ko.observable(),
+        attractions : ko.observableArray(),
     }
 
 
 
     function createEvent(data) {
-        self.event.name(data._embedded.events[0].name);
-        console.log("Event :");
+        temp = data._embedded.events[0];
+        console.log('temp :', temp);
+
+        self.event.name(temp.name)
+        self.event.date(temp.dates.start.localDate)
+        self.event.venue_name(temp._embedded.venues[0].name)
+        self.event.street(temp._embedded.venues[0].address.line1)
+        self.event.city(temp._embedded.venues[0].city.name)
+        self.event.zip_code(temp._embedded.venues[0].postalCode)
+        self.event.country(temp._embedded.venues[0].country.name)
+        self.event.promoter(temp.promoter.name)
+        self.event.attractions(temp._embedded.attractions)
+        console.log('attract: ', self.event.attractions())
+
+
+
+
+        console.log("Event :", self.event.name());
         console.log("Eventdate :")
     }
 
     self.getEvent = function(){
         console.log('getEvent');
-        var json = $.getJSON('https://app.ticketmaster.com/discovery/v2/events.json?id=Z698xZG2ZakoK&apikey=' + apikey, function(data){
+        var json = $.getJSON('https://app.ticketmaster.com/discovery/v2/events.json?id='+ eventID + '&apikey=' + apikey, function(data){
             createEvent(data);
+            initialize();
+            codeAddress();
         })
     }
 
@@ -49,8 +75,8 @@ var viewModel = new function()
         map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
     }
     function codeAddress() {
-        var address = self.address.street() + " " + self.address.number() + " " + self.address.city() 
-        + " " + self.address.zip_code() + " " + self.address.country();
+        var address = self.event.street() + " " + self.event.city() 
+        + " " + self.event.zip_code() + " " + self.event.country();
         console.log("GOOGLE",address)
         geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == 'OK') {
