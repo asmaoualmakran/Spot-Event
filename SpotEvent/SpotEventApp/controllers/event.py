@@ -20,6 +20,10 @@ def event_request(request):
 		serializers = eventSerializer(events, many=True, context={'request': request})
 		return Response(serializers.data)
 	elif (request.method == 'POST'):
+
+		if ('id' not in request.COOKIES):
+			return Response(status=status.HTTP_403_FORBIDDEN)
+
 		serializer = eventSerializer(data=request.data)
 		if (serializer.is_valid()):
 			serializer = Create_eventSerializer(serializer.save(), context={'request': request})
@@ -40,18 +44,28 @@ def single_event_request(request,pk):
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
 	elif(request.method == 'PUT'):
+
+		if ('id' not in request.COOKIES):
+			return Response(status=status.HTTP_403_FORBIDDEN)
+
 		serializer = eventSerializer(event, data=request.data, context={'request':request})
 		if(serializer.is_valid()):
 			serializer.save()
 			return Response(status=status.HTTP_204_NO_CONTENT)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 	else:
+		if ('id' not in request.COOKIES):
+			return Response(status=status.HTTP_403_FORBIDDEN)
 		event.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['PUT'])
 def update_liked_list(request,pk, user_pk):
+
+	if ('id' not in request.COOKIES):
+		return Response(status=status.HTTP_403_FORBIDDEN)
+
 	try:
 		event = eventModel.objects.get(id=pk)
 	except event.DoesNotExist:
@@ -61,6 +75,7 @@ def update_liked_list(request,pk, user_pk):
 		user = userModel.objects.get(id=user_pk)
 	except user.DoesNotExist:
 		return Response(status=status.HTTP_404_NOT_FOUND)
+
 		
 	event.likedBy.add(user)
 	event.save()

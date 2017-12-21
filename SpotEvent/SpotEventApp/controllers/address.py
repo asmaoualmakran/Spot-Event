@@ -16,6 +16,10 @@ def address_request(request):
 		return Response(serializer.data)
 
 	elif (request.method == 'POST'):
+
+		if ('id' not in request.COOKIES):
+			return Response(status=status.HTTP_403_FORBIDDEN)
+
 		serializer = addressSerializer(data=request.data)
 		if (serializer.is_valid()):
 			serializer.save()
@@ -26,6 +30,7 @@ def address_request(request):
 
 @api_view(['GET','PUT','DELETE'])
 def single_address_request(request, pk): 
+
 	try: 
 		address = addressModel.objects.get(id=pk)
 	except addressModel.DoesNotExist: 
@@ -36,6 +41,10 @@ def single_address_request(request, pk):
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
 	elif(request.method == 'PUT'):
+
+		if ('id' not in request.COOKIES):
+			return Response(status=status.HTTP_403_FORBIDDEN)
+
 		serializer = addressSerializer(address, data=request.data, context={'request':request})
 		if(serializer.is_valid()):
 			serializer.save()
@@ -50,6 +59,8 @@ def single_address_request(request, pk):
 		if(identifierModel.objects.filter(address_id=pk).exists()):
 			return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 		else:
+			if ('id' not in request.COOKIES):
+				return Response(status=status.HTTP_403_FORBIDDEN)
 			address.delete()
 			return Response(status=status.HTTP_204_NO_CONTENT)
 	

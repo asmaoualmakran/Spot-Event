@@ -5,9 +5,7 @@ from SpotEventApp.controllers import user, event, venue, address, review, spotif
 from SpotEventApp import views
 
 urlpatterns = [
-	url(r'^$', controller.api_root),
-
-    url(r'^login$', views.login, name="login"),
+    url(r'^$', views.login, name="login"),
     url(r'^profile/(?P<pk>[0-9]+)$', views.profile, name="profile"),
     url(r'^event/(?P<pk>[0-9]+)$', views.event, name="event"),
     url(r'^ticketevent/(?P<pk>([a-z]|[0-9])+)$', views.ticketevent, name="ticketevent"),
@@ -16,7 +14,7 @@ urlpatterns = [
     url(r'^addevent$', views.addevent, name="addevent"),
     url(r'^search/(?P<pk>([a-z]|[0-9])+)$', views.search, name="search"),
     url(r'^spotifyAuth$', spotifyAuth.login, name=None),
-    url(r'^authed$', spotifyAuth.request_Auth, name=None)
-   )
+    url(r'^authed$', spotifyAuth.request_Auth, name=None),
+    url(r'^refresh_token/(?P<pk>[0-9]+)$', spotifyAuth.refresh_token, name=None),
 ]
 
