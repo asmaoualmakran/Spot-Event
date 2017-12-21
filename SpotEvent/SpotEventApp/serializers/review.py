@@ -12,7 +12,7 @@ class Review(serializers.HyperlinkedModelSerializer):
 
 
 class Create_review(serializers.ModelSerializer):
-	
+
 	class Meta: 
 		model = reviewModel
 		fields = ('user_id', 'venue_id', 'score','review')

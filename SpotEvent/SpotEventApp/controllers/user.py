@@ -1,4 +1,5 @@
 from rest_framework import status
+from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
@@ -24,15 +25,16 @@ def user_request(request):
 		serializer	= Create_userSerializer(data=request.data) # hier creeeren 
 		if (serializer.is_valid()):
 			user = serializer.save()
-			print('created')
 			serializer = userSerializer(user, context={'request':request} )	# de gecreeerde user terug geven
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 @api_view(['GET','PUT','DELETE'])
 def single_user_request(request, pk): #get one user with the specific
+#	if(! 'id' in request.COOKIES):
+#		redirect()
+
 	try: 
 		user = userModel.objects.get(id=pk)
 	except userModel.DoesNotExist:
@@ -52,19 +54,34 @@ def single_user_request(request, pk): #get one user with the specific
 		user.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)	
 
+
 @api_view(['POST'])
 def user_Authenticate(request):
-	print(request.data)
 	serializer = Authenticate_userSerializer(data=request.data, context={'request':request})
 	if(serializer.is_valid()):
-		print("PRINTOUT",serializer.data['password'])
-		user = authenticate(username=serializer.data['email'], password=serializer.data['password'])
-		print(user)
-		if user is not None and user.is_active:
-		    # A backend authenticated the credentials
-		    return Response(status=status.HTTP_200_OK)
-		else:
-		    # No backend authenticated the credentials
-		    return Response(status=status.HTTP_403_FORBIDDEN)
+		try:
+			user = authenticate(username=serializer.data['email'], password=serializer.data['password'])
+			print(user)
+			user_object = userModel.objects.get(email=serializer.data['email'])
+			serializer = userSerializer(user_object, context={'request':request})
+			if user is not None and user.is_active:
+			    # A backend authenticated the credentials
+				response = Response(serializer.data, status=status.HTTP_200_OK)
+				response.set_cookie('id',user_object.id)
+				#return Response(serializer.data, status=status.HTTP_200_OK)
+				return response
+			else:
+			    # No backend authenticated the credentials
+				return Response(status=status.HTTP_403_FORBIDDEN)
+		except userModel.DoesNotExist: 
+			return Response(status=status.HTTP_404_NOT_FOUND) 
 	else:
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def user_logout(request):
+	response = Response(status=status.HTTP_200_OK)
+	response.delete_cookie('id')
+	return response
+	

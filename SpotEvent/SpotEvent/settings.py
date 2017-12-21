@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Path where all media (images) are saved 
+MEDIA_ROOT = '/Spot-Event/SpotEvent/media'
+
+MEDIA_URL = '/media/'
 
 # Application definition
 
@@ -70,6 +74,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'SpotEvent.wsgi.application'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 #Set the authenication backends
 

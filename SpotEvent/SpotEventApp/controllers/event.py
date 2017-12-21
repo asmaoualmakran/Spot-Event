@@ -4,7 +4,9 @@ from rest_framework.response import Response
 from SpotEventApp.serializers.event import Event as eventSerializer
 from SpotEventApp.serializers.event import Create_event as Create_eventSerializer
 from SpotEventApp.models.event import Event as eventModel
-from SpotEventApp.serializers.venue import Venue as venueSerializer 
+from SpotEventApp.serializers.venue import Venue as venueSerializer
+#from SpotEventApp.serializers.user import User as UserSerializer
+from SpotEventApp.models.user import User as userModel 
 #venueSerializer is momenteel nog niet nodig er moet pas een venue gemaakt 
 #worden wanneer de venue nog niet zou bestaan
 #TODO: handel nog niet bestaande venues af
@@ -46,3 +48,21 @@ def single_event_request(request,pk):
 	else:
 		event.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['PUT'])
+def update_liked_list(request,pk, user_pk):
+	try:
+		event = eventModel.objects.get(id=pk)
+	except event.DoesNotExist:
+		return Response(status=status.HTTP_404_NOT_FOUND)
+
+	try:
+		user = userModel.objects.get(id=user_pk)
+	except user.DoesNotExist:
+		return Response(status=status.HTTP_404_NOT_FOUND)
+		
+	event.likedBy.add(user)
+	event.save()
+	return Response(status=status.HTTP_204_NO_CONTENT)
+	
