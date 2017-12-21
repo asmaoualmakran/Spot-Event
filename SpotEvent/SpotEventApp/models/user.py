@@ -31,7 +31,7 @@ class User(Identifier, AbstractUser):
 	last_name 	= models.CharField(max_length=30)
 	birthday 	= models.DateField()
 	email 		= models.EmailField(unique=True)
-	
+
 	objects = UserAccountManager()
 
 	USERNAME_FIELD = 'email'

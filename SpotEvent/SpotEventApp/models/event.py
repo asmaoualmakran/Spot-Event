@@ -18,5 +18,5 @@ class Event(models.Model):
 	artists 	= models.CharField(max_length=100, default='NO_ARTISTS')
 	genre 		= models.CharField(max_length=100, default='NO_GENRE')
 	upload		= models.FileField(upload_to = media_directory_path, null=True)  #the path where the image is uploaded to
-
+	likedBy		= models.ManyToManyField(User, default='NOT_LIKED')
 

@@ -40,7 +40,26 @@ def request_Auth(request):
 
 #token_link, we send a request to this link 
 
+@api_view(['GET', 'PUT', 'DELETE'])
+def single_spotifyAuth_request(request, pk):
+	try:
+		spotifyAuth = spotifyAuthModel.objects.get(id=pk)
+	except spotifyAuth.DoesNotExist:
+		return Response(status=status.HTTP_404_NOT_FOUND)
 
+	if(request.method == 'GET'):
+		serializer = SpotifyAuthSerializer(spotifyAuth, context={'request':request})
+		return Response(serializer.data, status=status.HTTP_200_OK)
 
+	elif(request.method == 'PUT'):
+		serializer = SpotifyAuthSerializer(spotifyAuth, data=request.data, content={'request':request})
+		if(serializer.is_valid()):
+			serializer.save()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	else:
+		spotifyAuth.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)	
 
 
