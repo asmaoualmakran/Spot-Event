@@ -11,11 +11,13 @@ urlpatterns = [
     url(r'^user$', user.user_request, name="user"),
     url(r'^user/(?P<pk>[0-9]+)$', user.single_user_request, name="user-detail"),
     url(r'^user/authenticate$',user.user_Authenticate),
+    url(r'^user/logout$', user.user_logout),
 #SPOTIFYAUTH----------------------------------------------------------------------------------
     url(r'^spotifyAuthed/(?P<pk>[0-9]+)$', spotifyAuth.single_spotifyAuth_request, name="spotifyAuth-detail"),
 #EVENT----------------------------------------------------------------------------------------
    	url(r'^event$', event.event_request, name="event"),
    	url(r'^event/(?P<pk>[0-9]+)$', event.single_event_request, name="event-detail"),
+    url(r'^eventlike/(?P<pk>[0-9]+)/(?P<user_pk>[0-9])$', event.update_liked_list, name="event-detail"),
 #ADDRESS--------------------------------------------------------------------------------------
     url(r'^address$',address.address_request, name="address"),
     url(r'^address/(?P<pk>[0-9]+)$',address.single_address_request, name="address-detail"),

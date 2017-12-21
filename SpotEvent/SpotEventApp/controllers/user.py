@@ -74,3 +74,11 @@ def user_Authenticate(request):
 			return Response(status=status.HTTP_404_NOT_FOUND) 
 	else:
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def user_logout(request):
+	response = Response(status=status.HTTP_200_OK)
+	response.delete_cookie('id')
+	return response
+	
