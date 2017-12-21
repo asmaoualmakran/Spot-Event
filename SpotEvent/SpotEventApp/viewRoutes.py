@@ -8,7 +8,8 @@ urlpatterns = [
 	url(r'^$', controller.api_root),
     url(r'^user$', views.index, name="user"),
     url(r'^spotifyAuth$', spotifyAuth.login, name=None),
-    url(r'^authed$', spotifyAuth.request_Auth, name=None)
+    url(r'^authed$', spotifyAuth.request_Auth, name=None),
+    url(r'^refresh_token/(?P<pk>[0-9]+)$', spotifyAuth.refresh_token, name=None)
     # url(r'^user/(?P<pk>[0-9]+)$', user.single_user_request, name="user-detail"),
     # url(r'^user/authenticate$',user.user_Authenticate),
    	# url(r'^event$', event.event_request, name="event"),
