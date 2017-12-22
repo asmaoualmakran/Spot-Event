@@ -1,6 +1,11 @@
 var viewModel = new function()
 {
     var self = this;
+
+    self.logout = function(){
+        var json = $.post('/api/logout', ko.toJS(''))
+        window.location = 'http://127.0.0.1:8000'
+    }
     
     self.searchstring = ko.observable('');
 

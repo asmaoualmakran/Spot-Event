@@ -13,6 +13,11 @@ var viewModel = new function()
    var userID = parseInt(cookie.slice(3));
     console.log('ID :',userID);
 
+    self.logout = function(){
+        var json = $.post('/api/logout', ko.toJS(''))
+        window.location = 'http://127.0.0.1:8000'
+    }
+
     self.error = ko.observable();
 
     self.failure = function(errors){

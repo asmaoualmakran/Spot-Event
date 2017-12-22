@@ -16,6 +16,11 @@ var viewModel = new function()
     var eventID = url.slice(33);
     console.log('ID :', eventID);
 
+    self.logout = function(){
+        var json = $.post('/api/logout', ko.toJS(''))
+        window.location = 'http://127.0.0.1:8000'
+    }
+
     self.event = {
         name : ko.observable(),
         date: ko.observable(),
