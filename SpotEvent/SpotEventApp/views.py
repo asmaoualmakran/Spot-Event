@@ -7,7 +7,7 @@ def login(request):
 	context={}
 	return HttpResponse(get_template('login.html').render(context, request))
 
-def profile(request, pk):
+def profile(request):
 	if('id' not in request.COOKIES):
 		return redirect(reverse('login', request=request))
 	context={}

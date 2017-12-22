@@ -8,9 +8,9 @@ var viewModel = new function()
     self.search = function(){
         window.location.href = "search" + self.searchstring(); 
     }
-    
-    var url = window.location.href;
-    var userID = url.slice(29)
+
+   var cookie = document.cookie
+   var userID = parseInt(cookie.slice(3));
     console.log('ID :',userID);
 
     self.profile = {

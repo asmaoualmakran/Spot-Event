@@ -9,6 +9,10 @@ var viewModel = new function()
         window.location.href = "search" + self.searchstring(); 
     }
 
+    var cookie = document.cookie
+   var userID = parseInt(cookie.slice(3));
+    console.log('ID :',userID);
+
     self.error = ko.observable();
 
     self.failure = function(errors){
@@ -191,6 +195,10 @@ var viewModel = new function()
         })
     }
 
+    self.likeEvent = function(){
+        var json = $.put('api/eventlike/' + eventID + '/' + userID);
+    }
+
 
     self.getEvent();
     var geocoder;
@@ -218,6 +226,21 @@ var viewModel = new function()
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
+        });
+    }
+
+     $.put = function(url, data, callback, type){
+        if ( $.isFunction(data) ){
+            type = type || callback,
+            callback = data,
+            data = {}
+        }
+        return $.ajax({
+            url: url,
+            type: 'PUT',
+            success: callback,
+            data: data,
+            contentType: type
         });
     }
 }
