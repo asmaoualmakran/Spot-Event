@@ -3,7 +3,7 @@
   <script src="/static/js/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
-  <script src="/static/js/Knockout.js"></script>
+  <script src="/static/js/knockout.js"></script>
 
   <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.css"/>
   <link rel="stylesheet" href="/static/css/spotEvent.css">
@@ -52,7 +52,7 @@
 			<p> <label id = "label">First Name : </label><input id="input" data-bind="textInput: data.first_name" placeholder="First Name" /></p>
 			<p> <label id = "label">Last Name : </label><input id="input" data-bind = "textInput: data.last_name" placeholder="Last Name"/></p>
 			<p> <label id = "label">Email :  </label><input id="input" type="email" data-bind = "textInput: data.email" placeholder="email@email.com"/></p>
-			<p> <label id = "label">Birthdate : </label><input id="input" data-bind = "textInput: data.birthday"></p>
+			<p> <label id = "label">Birthdate : </label><input id="input" data-bind = "textInput: data.birthday" type="date"></p>
 			<p> <label id = "label">Password : </label><input id="input" type="password" data-bind = "textInput: data.password" placeholder="Password"></p>
 
       <p> <label id = "label">Street : </label><input id="input" data-bind = "textInput: data.street" placeholder="Street"/></p>
@@ -72,7 +72,7 @@
 
 	</body>
   <footer>
-    <script src="/static/js/loginModel.js"></script>
+    <script src="/static/js/loginmodel.js"></script>
   </footer>
 
 </html>
