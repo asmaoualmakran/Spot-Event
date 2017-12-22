@@ -76,6 +76,7 @@ var viewModel = new function()
                     var json = $.getJSON(event.user_id,function(data){
                       event.user = data
                       self.events.push(event)
+                      console.log('push:',self.events)
                     })
                 })
             })
@@ -113,8 +114,6 @@ var viewModel = new function()
     self.showSpotEvent = ko.observable(true);
 
     
-
-    self.getEvents()
     self.getTicketmaster();
 
 }
