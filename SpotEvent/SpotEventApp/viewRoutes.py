@@ -6,7 +6,7 @@ from SpotEventApp import views
 
 urlpatterns = [
     url(r'^$', views.login, name="login"),
-    url(r'^profile(?P<pk>[0-9]+)$', views.profile, name="profile"),
+    url(r'^profile/(?P<pk>[0-9]+)$', views.profile, name="profile"),
     url(r'^event(?P<pk>[0-9]+)$', views.event, name="event"),
     url(r'^ticketevent(?P<pk>.+)$', views.ticketevent, name="ticketevent"),
     url(r'^browse$', views.browse, name="browse"),
