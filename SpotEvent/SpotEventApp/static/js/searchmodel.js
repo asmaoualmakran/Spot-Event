@@ -10,7 +10,7 @@ var viewModel = new function()
     self.searchstring2 = ko.observable('');
 
     self.search = function(){
-        window.location.href = "search" + self.searchstring2(); 
+        window.location = "http://127.0.0.1:8000/search" + self.searchstring2(); 
     }
 
     var url = window.location.href;
