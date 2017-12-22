@@ -3,19 +3,27 @@ var viewModel = new function()
 	var apikey = 'A491Blf11EgsYMWGiUGcgNA2rM3bDNtD';
     var self = this;
 
+    var cookie = document.cookie;
+    console.log('cookie :', cookie.slice(3))
+    var userID = parseInt(cookie.slice(3));
+
     self.searchstring2 = ko.observable('');
 
     self.search = function(){
-        window.location.href = "search/" + self.searchstring(); 
+        window.location.href = "search" + self.searchstring2(); 
     }
 
     var url = window.location.href;
 
-    var searchstring = url.slice(29);
+    var searchstring = url.slice(28);
     console.log('SS : ', searchstring);
 
     self.openEvent = function(id){
-        window.location = "http://127.0.0.1:8000/event/" + id;
+        window.location = "http://127.0.0.1:8000/event" + id;
+    }
+
+    self.openTicketEvent = function(id){
+        window.location = "http://127.0.0.1:8000/ticketevent" + id;
     }
 
    self.filterf = function(event){
@@ -44,14 +52,14 @@ var viewModel = new function()
     self.getEvents = function(){
         var json = $.getJSON('/api/event',function(data){
             console.log('Events:',data);
+            data.map(el => el.venue = {'address': {'street' : ''}});
             data2 = data.filter(self.filterf);
             console.log('Filtered :',data2);
             data3 = data2.sort(self.sortf);
             console.log('Sorted :', data3);
-            createEvents(data3);
-            self.getVenues();
-            console.log('venues added :', self.events())
-            self.getUsers();
+            self.getVenues(data3);
+            console.log('venues added :', self.events());
+            //self.getUsers();
             console.log('user added :', self.events());
         });
     }
@@ -64,33 +72,57 @@ var viewModel = new function()
     	
     }
 
+    self.likeEvent = function(eventID){
+        var json = $.put('api/eventlike/' + eventID + '/' + userID);
+    }
+
+
+
     self.getEvents();
     self.getTicketmaster();
 
 
-    self.getVenues = function(){
-        self.events().forEach(function(event){
+    self.getVenues = function(events){
+        events.forEach(function(event){
             var json = $.getJSON(event.venue_id,function(data){
                 event.venue = data
                 var json = $.getJSON(event.venue.address_id,function(data2){
                     event.venue.address = data2;
+                    var json = $.getJSON(event.user_id,function(data){
+                      event.user = data
+                      self.events.push(event)
+                    })
                 })
             })
         })};
+    }
 
-    self.getUsers = function(){
-        self.events().forEach(function(event){
-            var json = $.getJSON(event.user_id,function(data){
-                event.user = data
-            })
-        })};
+    
+    self.toggleTicket = function(){
+        self.showTicketmaster(!self.showTicketmaster());
+    }
 
-    self.getAddresses = function(){
-        self.events().forEach(function(event){
-            var json = $.getJSON(event.venue_id,function(data){
-                event.venue = data
-            })
-        })};
-}
+    self.toggleSpot = function(){
+        self.showSpotEvent(!self.showSpotEvent());
+    }
+
+    self.showTicketmaster = ko.observable(true);
+    self.showSpotEvent = ko.observable(true);
+
+
+    $.put = function(url, data, callback, type){
+        if ( $.isFunction(data) ){
+            type = type || callback,
+            callback = data,
+            data = {}
+        }
+        return $.ajax({
+            url: url,
+            type: 'PUT',
+            success: callback,
+            data: data,
+            contentType: type
+        });
+    }
 
 ko.applyBindings(viewModel);  

@@ -5,13 +5,13 @@
   <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
   <script src="/static/js/Knockout.js"></script>
 
-  <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css"/>
-  <link rel="stylesheet" href="/static/css/event.css">
+  <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.css"/>
+  <link rel="stylesheet" href="/static/css/spotEvent.css">
 
 </head>
 
-	<body>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">Spot-Event</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
       aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,23 +21,17 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapsed" href="./login">Home
+            <a class="nav-link" data-toggle="collapsed" href="./browse">Browse
               <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./browse">Browse</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./spotlight">Spotlight</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./profile">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./event">Event</a>
-          </li>
           <li class="nav-item active">
             <a class = "nav-link" href="./addevent">Add Event</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./profile">Profile</a>
           </li>
         </ul>
 
@@ -46,19 +40,28 @@
       </div>
     </nav>
 
-            Add event :
-            <p>Name :<input data-bind="value :event.event_name" placeholder="Event name"></p>
-            <p>Date :<input data-bind="value :event.event_date" placeholder="Event name"></p>
-            <p>Artistst :<input data-bind="value :event.artists" placeholder="Event name"></p>
-            <p>Genre : <input data-bind="value :event.genre" placeholder="Event name"></p>
+    <div>
+      <div id='container' class="alert alert-dismissible alert-danger" data-bind='visible: errorsvisible'>
+        <strong data-bind='errors'></strong>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    </div>
+    
+          <div id='form'>
+            <h1>Fill in all the fields to create a new event :</h1><br><br>
+            <p><label id = "label">Name :</label><input id="input" data-bind="value :event.event_name" placeholder="Event name"></p>
+            <p><label id = "label">Date :</label><input id="input"data-bind="value :event.event_date" placeholder="Event name"></p>
+            <p><label id = "label">Artists:</label><input id="input"data-bind="value :event.artists" placeholder="Event name"></p>
+            <p><label id = "label">Genre : </label><input id="input"data-bind="value :event.genre" placeholder="Event name"></p>
 
-            <p> Street : <input data-bind = "textInput: venue.street" placeholder="Street"/></p>
-            <p> Number : <input data-bind = "textInput: venue.number" placeholder="Number"/></p>
-            <p> City : <input data-bind = "textInput: venue.city" placeholder="City"/></p>
-            <p> Zipcode : <input data-bind = "textInput: venue.zip_code" placeholder="Zipcode"/></p>
-            <p> Country : <input data-bind = "textInput: venue.country" placeholder="Country"/></p>
+            <p> <label id = "label">Street :</label><input id="input"data-bind = "textInput: venue.street" placeholder="Street"/></p>
+            <p> <label id = "label">Number :</label><input id="input"data-bind = "textInput: venue.number" placeholder="Number"/></p>
+            <p> <label id = "label">City : </label><input id="input"data-bind = "textInput: venue.city" placeholder="City"/></p>
+            <p> <label id = "label">Zipcode :</label><input id="input"data-bind = "textInput: venue.zip_code" placeholder="Zipcode"/></p>
+            <p> <label id = "label">Country :</label><input id="input"data-bind = "textInput: venue.country" placeholder="Country"/></p>
 
             <p><button data-bind = 'click: addEvent' class="btn btn-primary">Add Event</button></p>
+          </div>
 
 	</body>
   <footer>
