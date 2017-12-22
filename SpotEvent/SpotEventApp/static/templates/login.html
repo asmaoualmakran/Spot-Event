@@ -3,13 +3,14 @@
   <script src="/static/js/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
-	<script src="/static/js/Knockout.js"></script>
+  <script src="/static/js/Knockout.js"></script>
 
-	<link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css"/>
-  <link rel="stylesheet" href="/static/css/event.css">
+  <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.css"/>
+  <link rel="stylesheet" href="/static/css/spotEvent.css">
 
 </head>
-	<body>
+
+  <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">Spot-Event</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
@@ -19,53 +20,53 @@
 
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" data-toggle="collapsed" href="./login">Home
-              <span class="sr-only">(current)</span></a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link" href="./browse">Browse</a>
+            <a class="nav-link" data-toggle="collapsed" href="./browse">Browse
+              <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./spotlight">Spotlight</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./profile">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./event">Event</a>
-          </li>
-          <li class="nav-item">
             <a class = "nav-link" href="./addevent">Add Event</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./profile">Profile</a>
+          </li>
         </ul>
-      </div>
     </nav>
 
-
-
-
     <div>
-		Register an new account :
-			<p> Username : <input data-bind = "textInput: data.username" placeholder="Username"/></p>
-			<p> First Name : <input data-bind="textInput: data.first_name" placeholder="First Name" /></p>
-			<p> Last Name : <input data-bind = "textInput: data.last_name" placeholder="Last Name"/></p>
-			<p> Email :  <input type="email" data-bind = "textInput: data.email" placeholder="email@email.com"/></p>
-			<p> Birthdate : <input data-bind = "textInput: data.birthday"></p>
-			<p> Password : <input type="password" data-bind = "textInput: data.password" placeholder="Password"></p>
+      <div id='container' class="alert alert-dismissible alert-danger" data-bind='visible: errorsvisible'>
+        <strong data-bind='errors'></strong>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    </div>
 
-      <p> Street : <input data-bind = "textInput: data.street" placeholder="Street"/></p>
-      <p> Number : <input data-bind = "textInput: data.number" placeholder="Number"/></p>
-      <p> City : <input data-bind = "textInput: data.city" placeholder="City"/></p>
-      <p> Zipcode : <input data-bind = "textInput: data.zip_code" placeholder="Zipcode"/></p>
-      <p> Country : <input data-bind = "textInput: data.country" placeholder="Country"/></p>
+
+
+
+    <div id='form'>
+      <h1> Register an new account :</h1>
+			<p> <label id = "label">Username :</label> <input id="input" data-bind = "textInput: data.username" placeholder="Username"/></p>
+			<p> <label id = "label">First Name : </label><input id="input" data-bind="textInput: data.first_name" placeholder="First Name" /></p>
+			<p> <label id = "label">Last Name : </label><input id="input" data-bind = "textInput: data.last_name" placeholder="Last Name"/></p>
+			<p> <label id = "label">Email :  </label><input id="input" type="email" data-bind = "textInput: data.email" placeholder="email@email.com"/></p>
+			<p> <label id = "label">Birthdate : </label><input id="input" data-bind = "textInput: data.birthday"></p>
+			<p> <label id = "label">Password : </label><input id="input" type="password" data-bind = "textInput: data.password" placeholder="Password"></p>
+
+      <p> <label id = "label">Street : </label><input id="input" data-bind = "textInput: data.street" placeholder="Street"/></p>
+      <p> <label id = "label">Number : </label><input id="input" data-bind = "textInput: data.number" placeholder="Number"/></p>
+      <p> <label id = "label">City : </label><input id="input" data-bind = "textInput: data.city" placeholder="City"/></p>
+      <p> <label id = "label">Zipcode : </label><input id="input" data-bind = "textInput: data.zip_code" placeholder="Zipcode"/></p>
+      <p> <label id = "label">Country : </label><input id="input" data-bind = "textInput: data.country" placeholder="Country"/></p>
 			<p><button data-bind = 'click: register' class="btn btn-primary">Register</button></p>
     </div>
 
-    <div>
-		Login with an existing account :
-			<p> Username : <input data-bind = "textInput: data2.email" placeholder="Email"/></p>
-			<p> Password : <input type="password" data-bind = "textInput: data2.password" placeholder="Password"></p>
+    <div id ='form2'>
+		<h1> Login with an existing account : </h1>
+			<p> <label id = "label">Username : </label><input id="input" data-bind = "textInput: data2.email" placeholder="Email"/></p>
+			<p> <label id = "label">Password : </label><input id="input" type="password" data-bind = "textInput: data2.password" placeholder="Password"></p>
 			<button data-bind="click: login" class="btn btn-primary">Login</button>
 		</div>
 

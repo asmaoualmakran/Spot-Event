@@ -9,11 +9,11 @@ var viewModel = new function()
     self.searchstring = ko.observable('');
 
     self.search = function(){
-        window.location.href = "search/" + self.searchstring(); 
+        window.location.href = "search" + self.searchstring(); 
     }
 
     var url = window.location.href;
-    var eventID = url.slice(34);
+    var eventID = url.slice(33);
     console.log('ID :', eventID);
 
     self.event = {
@@ -25,7 +25,12 @@ var viewModel = new function()
         zip_code : ko.observable(),
         country : ko.observable(),
         promoter : ko.observable(),
+        url : ko.observable(),
         attractions : ko.observableArray(),
+    }
+
+    self.ticketlink = function(){
+        window.location = self.event.url()
     }
 
 
@@ -43,6 +48,7 @@ var viewModel = new function()
         self.event.country(temp._embedded.venues[0].country.name)
         self.event.promoter(temp.promoter.name)
         self.event.attractions(temp._embedded.attractions)
+        self.event.url(temp.url)
         console.log('attract: ', self.event.attractions())
 
 

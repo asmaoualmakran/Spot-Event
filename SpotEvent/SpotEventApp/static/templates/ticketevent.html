@@ -5,9 +5,8 @@
   <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
   <script src="/static/js/Knockout.js"></script>
 
-
-  <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css"/>
-  <link rel="stylesheet" href="/static/css/event.css">
+  <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.css"/>
+  <link rel="stylesheet" href="/static/css/spotEvent.css">
 
 </head>
 
@@ -22,23 +21,17 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapsed" href="./login">Home
+            <a class="nav-link" data-toggle="collapsed" href="./browse">Browse
               <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./browse">Browse</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./spotlight">Spotlight</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./profile">Profile</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="./event">Event</a>
+            <a class = "nav-link" href="./addevent">Add Event</a>
           </li>
           <li class="nav-item">
-            <a class = "nav-link" href="./addevent">Add Event</a>
+            <a class="nav-link" href="./profile">Profile</a>
           </li>
         </ul>
 
@@ -47,25 +40,28 @@
       </div>
     </nav>
 
-    <div>
-      Event :
-      <p>Event Name : <strong data-bind="text: event.name"></strong></p>
-      <p>Event Date : <strong data-bind = "text : event.date"></strong></p>
-      <p>Artists : </p>
-      <div data-bind="foreach: event.attractions">
+    <div id='event'>
+      <p><label id = "label">Event Name : </label><strong id='input' data-bind="text: event.name"></strong></p>
+      <p><label id = "label">Event Date : </label><strong id='input' data-bind = "text : event.date"></strong></p>
+      <p><label id = "label">Artists : </label>
+        <div id='event' data-bind="foreach: event.attractions">
         <strong data-bind="text: name"> </strong><br>
-      </div>
-      
-      Venue :
-      <p>Venue Name : <strong data-bind = "text : event.venue_name"></strong></p>
-      Address :
-      <p>Street : <strong data-bind="text: event.street"></strong></p>
-      <p>Zipcode : <strong data-bind="text: event.zip_code"></strong></p>
-      <p>City : <strong data-bind="text: event.city"></strong></p>
-      <p>Country : <strong data-bind="text: event.country"></strong></p>
-      <div id="googleMap" style="width:50%;height:400px;"></div>
+      </div></p>
+      <br>
+      <br>
 
-      <p>Promoter : <strong data-bind="text: event.promoter"></strong></p>
+      <p><label id = "label">Venue Name : </label><strong id='input' data-bind = "text : event.venue_name"></strong></p>
+      
+      <p><label id = "label">Street : </label><strong id='input' data-bind="text: event.street"></strong></p>
+      <p><label id = "label">Zipcode : </label><strong id='input' data-bind="text: event.zip_code"></strong></p>
+      <p><label id = "label">City : </label><strong id='input' data-bind="text: event.city"></strong></p>
+      <p><label id = "label">Country : </label><strong id='input' data-bind="text: event.country"></strong></p>
+
+      <p><label id = "label">Promoter : </label><strong id='input' data-bind="text: event.promoter"></strong>
+        <p><label id = "label">Ticket Link : </label><button class="btn btn-primary my-2 my-sm-0" data-bind="click: ticketlink">Buy Tickets</button></p>
+    </div>
+
+      <div id="googleMap" style="width:50%;height:400px;"></div>
 
   </body>
   

@@ -1,13 +1,12 @@
- <html>
+<html>
 <head>
   <script src="/static/js/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
   <script src="/static/js/Knockout.js"></script>
 
-
-  <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css"/>
-  <link rel="stylesheet" href="/static/css/event.css">
+  <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.css"/>
+  <link rel="stylesheet" href="/static/css/spotEvent.css">
 
 </head>
 
@@ -22,23 +21,17 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapsed" href="./login">Home
+            <a class="nav-link" data-toggle="collapsed" href="./browse">Browse
               <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./browse">Browse</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./spotlight">Spotlight</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./profile">Profile</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="./event">Event</a>
+            <a class = "nav-link" href="./addevent">Add Event</a>
           </li>
           <li class="nav-item">
-            <a class = "nav-link" href="./addevent">Add Event</a>
+            <a class="nav-link" href="./profile">Profile</a>
           </li>
         </ul>
 
@@ -48,33 +41,35 @@
     </nav>
 
     <div>
-      Event :
-      <p>Event Name : <strong data-bind = "text : event.event_name"></strong></p>
-      <p>Event Date : <strong data-bind = "text : event.event_date"></strong></p>
-      <p>Artists : <strong data-bind = "text : event.artists"></strong></p>
+      <div id='container' class="alert alert-dismissible alert-danger" data-bind='visible: errorsvisible'>
+        <strong data-bind='errors'></strong>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    </div>
 
-      Venue :
-      <p>Venue Name : <strong data-bind = "text : venue.venue_name"></strong></p>
+    <div id='event'>
+      <p><label id = "label">Event Name : </label><strong id='input' data-bind = "text : event.event_name"></strong></p>
+      <p><label id = "label">Event Date : </label><strong id='input' data-bind = "text : event.event_date"></strong></p>
+      <p><label id = "label">Artists : </label><strong id='input' data-bind = "text : event.artists"></strong></p>
 
-      Address :
-      <p>Street : <strong data-bind="text: address.street"></strong></p>
-      <p>Number : <strong data-bind="text: address.number"></strong></p>
-      <p>Zipcode : <strong data-bind="text: address.zip_code"></strong></p>
-      <p>City : <strong data-bind="text: address.city"></strong></p>
-      <p>Country : <strong data-bind="text: address.country"></strong></p>
+      <p><label id = "label">Venue Name : </label><strong id='input' data-bind = "text : venue.venue_name"></strong></p>
+
+      <p><label id = "label">Street : </label><strong id='input' data-bind="text: address.street"></strong></p>
+      <p><label id = "label">Number : </label><strong id='input' data-bind="text: address.number"></strong></p>
+      <p><label id = "label">Zipcode : </label><strong id='input' data-bind="text: address.zip_code"></strong></p>
+      <p><label id = "label">City : </label><strong id='input' data-bind="text: address.city"></strong></p>
+      <p><label id = "label">Country : </label><strong id='input' data-bind="text: address.country"></strong></p>
+      
+      <p><label id = "label">Creator username : </label><strong id='input' data-bind="text: user.username"></strong></p>
+      <p><label id = "label">Creator email : </label><strong id='input' data-bind="text: user.email"></strong></p>
       
       <div id="googleMap" style="width:50%;height:400px;"></div>
 
-      User :
-      <p>Username : <strong data-bind="text: user.username"></strong></p>
-      <p>Email : <strong data-bind="text: user.email"></strong></p>
+      
 
       <button data-bind="click: openReviews" class="btn btn-primary">See Reviews</button>
       <button data-bind="click: closeReviews" class="btn btn-secondary">Hide Reviews</button>
       <button data-bind="click: openAddReview" class ="btn btn-primary">Add Review</button>
-
-    </div>
-    Reviews :
 
     <div data-bind='visible: addReviewVisible'><br>
       Score : <input data-bind="value: addReview.score"><br><br>
@@ -88,15 +83,17 @@
       <div>
         <table data-bind="visible: reviewsVisible">
           <thead>
-            <tr><th>Score</th><th>Review</th></tr>
+            <tr><th>Score |</th><th>Review</th></tr>
           </thead>
           <tbody data-bind="foreach: reviews">
             <tr>
               <td data-bind="text: score"></td>
+              
               <td type='textarea' data-bind="text: review"></td>
             </tr>
           </tbody>
         </table>
+      </div>
       </div>
 
 

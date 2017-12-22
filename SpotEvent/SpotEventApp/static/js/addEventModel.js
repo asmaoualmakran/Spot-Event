@@ -8,6 +8,24 @@ var viewModel = new function()
         window.location.href = "search/" + self.searchstring(); 
     }
 
+    
+    self.error = ko.observable();
+
+    self.failure = function(errors){
+        self.error(errors.responseText);
+        console.log(self.error());
+        var d = document.createElement('DIV');
+        d.innerHTML = self.error();
+        d.innerHTML = d.innerHTML.replace(/,/g,"<br>")
+        d.innerHTML = d.innerHTML.replace('{',"")
+        d.innerHTML = d.innerHTML.replace(/"/g," ")
+        d.innerHTML = d.innerHTML.replace('}'," ")
+        document.getElementById('container').insertBefore(d, document.getElementById('div_1'));
+        self.errorsvisible(true);
+    }
+
+    self.errorsvisible=ko.observable(false);
+
     self.event = {
     	venue_id : ko.observable(),
     	user_id : ko.observable('http://127.0.0.1:8000/api/user/' + '1'),
@@ -30,8 +48,12 @@ var viewModel = new function()
     	var Json = $.post('/api/venue', ko.toJS(self.venue),function(data){
     		self.event.venue_id('http://127.0.0.1:8000/api/venue/' + data.id);
     		console.log('Event :',data)
-    		var Json2 = $.post('/api/event', ko.toJS(self.event));
-    	});
+    		var Json2 = $.post('/api/event', ko.toJS(self.event)).fail(function(response){
+            self.failure(response);
+        });
+    	}).fail(function(response){
+            self.failure(response);
+        });
     	
     };
     

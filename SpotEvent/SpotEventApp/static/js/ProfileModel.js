@@ -6,11 +6,11 @@ var viewModel = new function()
     self.searchstring = ko.observable('');
 
     self.search = function(){
-        window.location.href = "search/" + self.searchstring(); 
+        window.location.href = "search" + self.searchstring(); 
     }
     
     var url = window.location.href;
-    var userID = url.slice(30)
+    var userID = url.slice(29)
     console.log('ID :',userID);
 
     self.profile = {

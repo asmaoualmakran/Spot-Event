@@ -6,11 +6,29 @@ var viewModel = new function()
     self.searchstring = ko.observable('');
 
     self.search = function(){
-        window.location.href = "search/" + self.searchstring(); 
+        window.location.href = "search" + self.searchstring(); 
     }
 
+    self.error = ko.observable();
+
+    self.failure = function(errors){
+        self.error(errors.responseText);
+        console.log(self.error());
+        var d = document.createElement('DIV');
+        d.innerHTML = self.error();
+        d.innerHTML = d.innerHTML.replace(/,/g,"<br>")
+        d.innerHTML = d.innerHTML.replace('{',"")
+        d.innerHTML = d.innerHTML.replace(/"/g," ")
+        d.innerHTML = d.innerHTML.replace('}'," ")
+        document.getElementById('container').insertBefore(d, document.getElementById('div_1'));
+        self.errorsvisible(true);
+    }
+
+    self.errorsvisible = ko.observable(false);
+
+
     var url = window.location.href;
-    var eventID = url.slice(28);
+    var eventID = url.slice(27);
     console.log('ID :', eventID)
 
     self.addReview = {
@@ -100,6 +118,7 @@ var viewModel = new function()
             self.addReview.venue_id(data.venue_id);
             self.getUser();
             self.getVenue();
+            self.getReviews();
         })
     }
 
@@ -167,13 +186,13 @@ var viewModel = new function()
             self.getReviews();
             //self.addReview.score('');
             //self.addReview.reviewText('');
+        }).fail(function(response){
+            self.failure(response);
         })
     }
 
 
     self.getEvent();
-    self.getReviews();
-
     var geocoder;
     var map;
     function initialize() {
