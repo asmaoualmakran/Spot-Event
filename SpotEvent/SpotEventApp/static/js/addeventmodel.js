@@ -1,6 +1,10 @@
 var viewModel = new function()
 {
     var self = this;
+
+    var cookie = document.cookie;
+    console.log('cookie :', cookie.slice(3))
+    var userID = parseInt(cookie.slice(3));
     
     self.searchstring = ko.observable('');
 
@@ -28,7 +32,7 @@ var viewModel = new function()
 
     self.event = {
     	venue_id : ko.observable(),
-    	user_id : ko.observable('http://127.0.0.1:8000/api/user/' + '1'),
+    	user_id : ko.observable('http://127.0.0.1:8000/api/user/' + userID),
     	event_name : ko.observable('Robin'),
     	event_date : ko.observable('2017-11-11'),
     	artists : ko.observable('Robin'),
