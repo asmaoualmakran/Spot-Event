@@ -14,7 +14,6 @@ urlpatterns = [
     url(r'^addevent$', views.addevent, name="addevent"),
     url(r'^search(?P<pk>.+)$', views.search, name="search"),
     url(r'^spotifyAuth$', spotifyAuth.login, name=None),
-
     url(r'^authed$', spotifyAuth.request_Auth, name=None),
     url(r'^refresh_token/(?P<pk>[0-9]+)$', spotifyAuth.refresh_token, name=None),
 ]

@@ -37,7 +37,7 @@ var viewModel = new function()
 
 
     self.data2 = {
-        'email' : ko.observable('test@tester.com'),
+        'email' : ko.observable('cortvrindt.robin@gmail.com'),
         'password' : ko.observable('password'),
     }
 

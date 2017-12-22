@@ -47,7 +47,7 @@ var viewModel = new function()
 
     self.venue = {
     	venue_name : ko.observable('Robin'),
-    	street : ko.observable('Robin'),
+    	street : ko.observable('Vijverstraat'),
     	number : ko.observable('27'),
     	zip_code : ko.observable('1730'),
     	city : ko.observable('Asse'),
