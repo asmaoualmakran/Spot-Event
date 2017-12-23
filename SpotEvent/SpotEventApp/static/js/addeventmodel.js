@@ -63,7 +63,7 @@ var viewModel = new function()
     	country : ko.observable(),
     }
 
-    // sends a post event to 
+    // sends a post request to the server with the data for the new event
     self.addEvent = function(){
     	var Json = $.post('/api/venue', ko.toJS(self.venue),function(data){
     		self.event.venue_id('http://127.0.0.1:8000/api/venue/' + data.id);

@@ -5,22 +5,26 @@ var viewModel = new function()
     var apikey = 'A491Blf11EgsYMWGiUGcgNA2rM3bDNtD';
 
 
-
+    //the search string for the search box
     self.searchstring = ko.observable('');
 
+    // the function called by hitting the search button
     self.search = function(){
         window.location.href = "search" + self.searchstring(); 
     }
 
+    //gets the event ID from the url
     var url = window.location.href;
     var eventID = url.slice(33);
     console.log('ID :', eventID);
 
+    //logout the user
     self.logout = function(){
         var json = $.post('/api/logout', ko.toJS(''))
         window.location = 'http://127.0.0.1:8000'
     }
 
+    // the data for the event
     self.event = {
         name : ko.observable(),
         date: ko.observable(),
@@ -34,12 +38,13 @@ var viewModel = new function()
         attractions : ko.observableArray(),
     }
 
+    // the function called by the 'buy tickets' button, redirect to the page
     self.ticketlink = function(){
         window.location = self.event.url()
     }
 
 
-
+    //creates the event data
     function createEvent(data) {
         temp = data._embedded.events[0];
         console.log('temp :', temp);
@@ -63,6 +68,7 @@ var viewModel = new function()
         console.log("Eventdate :")
     }
 
+    //gets the event data from the ticketmaster database
     self.getEvent = function(){
         console.log('getEvent');
         var json = $.getJSON('https://app.ticketmaster.com/discovery/v2/events.json?id='+ eventID + '&apikey=' + apikey, function(data){
@@ -72,8 +78,10 @@ var viewModel = new function()
         })
     }
 
+    // calls the function to get the event
     self.getEvent();
 
+     //initializes the google map
     var geocoder;
     var map;
     function initialize() {
@@ -85,6 +93,8 @@ var viewModel = new function()
         }
         map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
     }
+
+    // codes the address and marks it on the map
     function codeAddress() {
         var address = self.event.street() + " " + self.event.city() 
         + " " + self.event.zip_code() + " " + self.event.country();

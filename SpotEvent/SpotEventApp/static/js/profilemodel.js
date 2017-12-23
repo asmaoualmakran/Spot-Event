@@ -3,21 +3,26 @@ var viewModel = new function()
 {
     var self = this;
 
+    //the search string for the search box
     self.searchstring = ko.observable('');
 
+    // the function called by hitting the search button
     self.search = function(){
         window.location.href = "search" + self.searchstring(); 
     }
 
-   var cookie = document.cookie
-   var userID = parseInt(cookie.slice(3));
+    // get the user ID from the cookie
+    var cookie = document.cookie
+    var userID = parseInt(cookie.slice(3));
     console.log('ID :',userID);
 
+     //logout the user
     self.logout = function(){
         var json = $.post('/api/logout', ko.toJS(''))
         window.location = 'http://127.0.0.1:8000'
     }
 
+    // the profile data
     self.profile = {
         username : ko.observable(),
         first_name : ko.observable(),
@@ -28,6 +33,7 @@ var viewModel = new function()
         id : ko.observable()
     }
 
+    //the data for the address of the profile
     self.profile2 = {
         street : ko.observable(),
         number : ko.observable(),
@@ -36,7 +42,7 @@ var viewModel = new function()
         country : ko.observable()
     }
 
-    
+    //store the data from the get request into the profile object
     function createProfile(data){
         self.profile.username(data.username);
         self.profile.first_name(data.first_name);
@@ -47,6 +53,7 @@ var viewModel = new function()
         self.profile.id(data.id);
     }
 
+    //store the data from the get request for the address into the address object
     function createProfile2(data){
         self.profile2.street(data.street);
         self.profile2.number(data.number);
@@ -55,6 +62,7 @@ var viewModel = new function()
         self.profile2.country(data.country);
     }
 
+    // gets the profile from the server
     self.getProfile = function(){
     	console.log('getProfile');
     	var json = $.getJSON('/api/user/'+ userID,function(data){
@@ -65,6 +73,7 @@ var viewModel = new function()
         });
     }
 
+    //gets the address from the server
     self.getAddress = function(){
         var json = $.getJSON(self.profile.address_id(),function(data2){
             console.log('Address :',data2);
@@ -72,9 +81,11 @@ var viewModel = new function()
         });
     }
 
+    //function must be executed when starting up the page
     self.getProfile();
 
 
+    //send the changed profile data to the server using a put request
     self.saveProfile = function(){
         console.log('saveProfile')
         var JsonData = ko.toJSON(self.profile);
@@ -82,6 +93,7 @@ var viewModel = new function()
         $.put('/api/user/1', ko.toJSON(self.profile))
     }
 
+    // since jquery didnt have a put function we created one
     $.put = function(url, data, callback, type){
         if ( $.isFunction(data) ){
             type = type || callback,

@@ -3,8 +3,10 @@ var viewModel = new function()
 {
     var self = this;
 
+    //used to store the error response from the server
     self.error = ko.observable();
 
+    //reads the error respond and inserts it in an alert box
     self.failure = function(errors){
         self.error(errors.responseText);
         console.log(self.error());
@@ -18,39 +20,43 @@ var viewModel = new function()
         self.errorsvisible(true);
     }
 
+    // the variable which decides whether or not the error box is visible
     self.errorsvisible=ko.observable(false);
     
-
+    // contains the data from the register form
     self.data = {
-    username : ko.observable('Thoraxis'),
-    first_name : ko.observable('Robin'),
-    last_name : ko.observable('Cortvrindt'),
-    email : ko.observable('cortvrindt.robin@gmail.com'),
-    birthday : ko.observable('1995-11-28'),
-    password : ko.observable('password'),
-    street : ko.observable('Vijverstraat'),
-    number : ko.observable('27'),
-    city : ko.observable('Asse'),
-    zip_code : ko.observable('1730'),
-    country : ko.observable('Belgium'),
+    username : ko.observable(),
+    first_name : ko.observable(),
+    last_name : ko.observable(),
+    email : ko.observable(),
+    birthday : ko.observable(),
+    password : ko.observable(),
+    street : ko.observable(),
+    number : ko.observable(),
+    city : ko.observable(),
+    zip_code : ko.observable(),
+    country : ko.observable(),
     }
 
-
+    // contains the data from the login form
     self.data2 = {
-        'email' : ko.observable('cortvrindt.robin@gmail.com'),
-        'password' : ko.observable('password'),
+        'email' : ko.observable(),
+        'password' : ko.observable(),
     }
 
+    // redirect you to the browse page after logging in
     self.redirect = function() {
         window.location.href="browse"
     }
 
+    // send register request to the server
     self.register = function(){
     	$.post('/api/user',ko.toJS(self.data),self.redirect).fail(function(response){
             self.failure(response);
         });
     };
 
+    // send login request to the server
     self.login = function(){
         $.post('/api/user/authenticate',ko.toJS(self.data2), self.redirect).fail(function(response){
             self.failure(response);
