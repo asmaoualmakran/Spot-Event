@@ -2,25 +2,30 @@ var viewModel = new function()
 {
     var self = this;
 
+    // get the user ID from the cookie
     var cookie = document.cookie;
     console.log('cookie :', cookie.slice(3))
     var userID = parseInt(cookie.slice(3));
 
+    //logout the user
     self.logout = function(){
         var json = $.post('/api/logout', ko.toJS(''))
         window.location = 'http://127.0.0.1:8000'
     }
 
-    
+    //the search string for the search box
     self.searchstring = ko.observable('');
 
+    // the function called by hitting the search button
     self.search = function(){
         window.location.href = "search/" + self.searchstring(); 
     }
 
-    
+    //used to store the error response from the server
     self.error = ko.observable();
 
+
+    //reads the error respond and inserts it in an alert box
     self.failure = function(errors){
         self.error(errors.responseText);
         console.log(self.error());
@@ -34,26 +39,31 @@ var viewModel = new function()
         self.errorsvisible(true);
     }
 
+    // the variable which decides whether or not the error box is visible
     self.errorsvisible=ko.observable(false);
 
+
+    //store the information about the event
     self.event = {
     	venue_id : ko.observable(),
     	user_id : ko.observable('http://127.0.0.1:8000/api/user/' + userID),
-    	event_name : ko.observable('Robin'),
-    	event_date : ko.observable('2017-11-11'),
-    	artists : ko.observable('Robin'),
-    	genre : ko.observable('Rock'),
+    	event_name : ko.observable(),
+    	event_date : ko.observable(),
+    	artists : ko.observable(),
+    	genre : ko.observable(),
     }
 
+    //stores the information about the venue for the event
     self.venue = {
-    	venue_name : ko.observable('Robin'),
-    	street : ko.observable('Vijverstraat'),
-    	number : ko.observable('27'),
-    	zip_code : ko.observable('1730'),
-    	city : ko.observable('Asse'),
-    	country : ko.observable('Belgium'),
+    	venue_name : ko.observable(),
+    	street : ko.observable(),
+    	number : ko.observable(),
+    	zip_code : ko.observable(),
+    	city : ko.observable(),
+    	country : ko.observable(),
     }
 
+    // sends a post event to 
     self.addEvent = function(){
     	var Json = $.post('/api/venue', ko.toJS(self.venue),function(data){
     		self.event.venue_id('http://127.0.0.1:8000/api/venue/' + data.id);
