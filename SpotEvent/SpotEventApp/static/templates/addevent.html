@@ -53,10 +53,11 @@
           <div id='form'>
             <h1>Fill in all the fields to create a new event :</h1><br><br>
             <p><label id = "label">Name :</label><input id="input" data-bind="value :event.event_name" placeholder="Event name"></p>
-            <p><label id = "label">Date :</label><input id="input"data-bind="value :event.event_date" placeholder="Event name"></p>
-            <p><label id = "label">Artists:</label><input id="input"data-bind="value :event.artists" placeholder="Event name"></p>
-            <p><label id = "label">Genre : </label><input id="input"data-bind="value :event.genre" placeholder="Event name"></p>
+            <p><label id = "label">Date :</label><input  id="input"data-bind="value :event.event_date"></p>
+            <p><label id = "label">Artists:</label><input id="input"data-bind="value :event.artists" placeholder="Artists"></p>
+            <p><label id = "label">Genre : </label><input id="input"data-bind="value :event.genre" placeholder="Genre"></p>
 
+            <p> <label id = "label">Venue Name</label><input id="input"data-bind = "textInput: venue.venue_name" placeholder="Venue Name"/></p>
             <p> <label id = "label">Street :</label><input id="input"data-bind = "textInput: venue.street" placeholder="Street"/></p>
             <p> <label id = "label">Number :</label><input id="input"data-bind = "textInput: venue.number" placeholder="Number"/></p>
             <p> <label id = "label">City : </label><input id="input"data-bind = "textInput: venue.city" placeholder="City"/></p>
