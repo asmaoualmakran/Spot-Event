@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^user/logout$', user.user_logout),
 #SPOTIFYAUTH----------------------------------------------------------------------------------
     url(r'^spotifyAuthed/(?P<pk>[0-9]+)$', spotifyAuth.single_spotifyAuth_request, name="spotifyAuth-detail"),
+    url(r'^spotifyAuth$', spotifyAuth.login),
+    url(r'^refresh_token/(?P<pk>[0-9]+)$', spotifyAuth.refresh_token),
 #EVENT----------------------------------------------------------------------------------------
    	url(r'^event$', event.event_request, name="event"),
    	url(r'^event/(?P<pk>[0-9]+)$', event.single_event_request, name="event-detail"),
